@@ -1,5 +1,9 @@
 # hybrid-breastCT
-This repository contains code used in this paper:
+This repository contains tools for generating hybrid breast CT images combining simulated pathology with real anatomical background.
+![image](https://github.com/user-attachments/assets/5296d99b-9c27-494f-81d6-74dfe5fd5055)
+
+
+## Citation
 
 "_Hybrid simulation of breast CT for assessing microcalcification detectability_". Lyu SH, Makeev A, Li D, Badal A, Hernandez AM, Boone JM, Glick SJ.
 Journal of Medical Imaging, 2025.
