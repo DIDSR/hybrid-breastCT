@@ -1,6 +1,6 @@
 # hybrid-breastCT
 This repository contains tools for generating hybrid breast CT images combining simulated pathology with real anatomical background.
-![image](https://github.com/user-attachments/assets/5296d99b-9c27-494f-81d6-74dfe5fd5055)
+![image](https://github.com/user-attachments/assets/539ca4a7-c2c6-46b8-8069-080405025048)
 
 
 ## Citation
