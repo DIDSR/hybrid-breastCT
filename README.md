@@ -8,6 +8,9 @@ This repository contains tools for generating hybrid breast CT images combining 
 ## Requirements
 1. Install TIGRE for Python
 2. Install required packages in a new Python environment
+'''
+pip install -r requirements.txt
+'''
 
 
 ## Citation
