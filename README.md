@@ -56,7 +56,7 @@ pip install -r requirements.txt
 
 This simulation framework is designed to be adaptable across different breast CT platforms. While the original implementation uses data from the [Doheny Breast CT system](https://pmc.ncbi.nlm.nih.gov/articles/PMC4376760/), users can integrate their own patient datasets by updating a few key components of the pipeline.
 
-Below are the parameters and functions you’ll need to modify or replace for compatibility with your system:
+Below are the parameters and functions you’ll need to modify or replace in ```hybrid-simulation.py``` or ```utils.py``` for compatibility with your system:
 
 
 ### 1. File Paths and Data Formats
