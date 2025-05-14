@@ -8,13 +8,13 @@ Then, run the following with the command line arguments:
 python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_calcs <NUM_CALCS> --calc_diameter_mm <CALC_DIAMETER_MM> --scanID <SCANID>
 ```
 
-<CLUSTER_DIAMETER_MM> = diameter of spherical cluster 
+<CLUSTER_DIAMETER_MM> = diameter of spherical cluster in mm
 
 <NUM_CALCS> = # calcs in cluster
 
-<CALC_DIAMETER_MM> = calc diameter 
+<CALC_DIAMETER_MM> = calc diameter in mm
 
-<SCANID> = scanID of patient images. Calc clusters will be inserted into these images.
+<SCAN_ID> = scanID of patient images. Calc clusters will be inserted into these images.
 
 ## EXAMPLE
 
