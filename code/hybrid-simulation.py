@@ -15,9 +15,9 @@ print(datetime.now(),flush=True)
 # USER INPUT  ##################################################################################################
 
 # Define paths and directories
-root_dir = '/projects01/didsr-aiml/suhyun.lyu/' #'/gpfs_projects/suhyun.lyu/'
-home_dir = '/home/suhyun.lyu/Projects/BreastCT/'
-voi_center_dir  = '/home/suhyun.lyu/Projects/BreastCT/a_CalcSimulation/Python/VOICenters/'
+home_dir = '/path/to/home/dir/'
+data_dir = '/path/to/data/dir/' 
+voi_center_dir  = '/path/to/voi/center/dir'
 loc_spectra = os.path.join(home_dir,'energy_spectra', 'W60kVp_0.2mmGd.spc')
 loc_material_files = {
     'calc': os.path.join(home_dir,'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
@@ -27,9 +27,9 @@ loc_material_files = {
     'csI': os.path.join(home_dir,'material_files', 'CesiumIodide__5-120keV.txt')
 }
 
-# Define path to save patches
-loc_save_MIPjpgs = os.path.join(root_dir, 'CalcPatches', 'MIPjpgs/')
-loc_save_patches = os.path.join(root_dir, 'CalcPatches', 'Patches/')
+# Define path for output data
+loc_save_MIPjpgs = os.path.join(data_dir, 'CalcPatches', 'MIPjpgs/')   # jpgs of MIP images
+loc_save_patches = os.path.join(data_dir, 'CalcPatches', 'Patches/')   # patches = final images in MIP or VOI form
 
 # Desired voxel size of object (microns)
 new_vx_um            = 30
@@ -37,18 +37,18 @@ new_vx_um            = 30
 # Ray tracing projection parameters
 energy_bin_size_keV  = 1
 csI_thickness_mm     = 0.45
-xsiz, ysiz           = 2048, 1536
+xsiz, ysiz           = 2048, 1536     # detector pixels in x direction, y direction
 dexel_mm             = 0.150
 vertical_offset_mm   = -30
 
 # VOI parameters
-num_SPvois_perbreast = 50
-num_SAvois_perbreast = 50
+num_SPvois_perbreast = 50             # max # signal present VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
+num_SAvois_perbreast = 50             # max # signal absent VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
 voi_size_mm = 8
 
 # Set material densities
 density = {
-    'calc': 2.12 * 0.84,  # 1.90 # Pure calcium oxalate*0.84 (Warren 2013)
+    'calc': 2.12 * 0.84,  # Pure calcium oxalate*0.84 (Warren 2013)
     'adipose': 0.920,
     'glandular': 1.035,
     'csI': 4.510
@@ -61,10 +61,10 @@ clusterCenteredFLAG  = 0  # [0 or 1] Center cluster within VOI
 # Reconstruction parameters
 kernels              = ['hann','shepp_logan', 'cosine', 'ram_lak']
 recon_algorithms     = ['FDK'] #['FDK', 'SART', 'CGLS', 'MLEM']
-iterations           = 30
-flagHU               = 0  # [0:mu  1:HU]
-effective_energy_keV = 36.2
-mu_water             = 0.298  # mu of water at effective energy of 36.2keV
+iterations           = 30                  # called if using iterative recon algorithm
+flagHU               = 0  # [0:mu  1:HU]   # output CT voxel values in mu or HU form
+effective_energy_keV = 36.2   # of current x-ray spectrum.
+mu_water             = 0.298  # mu of water at effective energy of 36.2keV, used for conversion from mu to HU
 
 # Flags for saving outputs
 savepatchesFLAG      = 1
@@ -158,14 +158,14 @@ from utils import fxn_load_seg
 
 start_time = time.time()
 # Load patient segmentation volume
-seg_volume, Nxyz, original_vx_um, labels = fxn_load_seg(scanID, root_dir)
+seg_volume, Nxyz, original_vx_um, labels = fxn_load_seg(scanID, data_dir)
 print(f"Elapsed time: {time.time() - start_time:.1f} seconds",flush=True)
 
 from utils import fxn_load_projections_and_geometry
 
 start_time = time.time()
 #Load patient projection images and define geometry for reconstruction
-prjstack, geo, ang = fxn_load_projections_and_geometry(scanID, root_dir, xsiz, ysiz, dexel_mm, vertical_offset_mm);
+prjstack, geo, ang = fxn_load_projections_and_geometry(scanID, data_dir, xsiz, ysiz, dexel_mm, vertical_offset_mm);
 print(f"Elapsed time: {time.time() - start_time:.1f} seconds",flush=True)
 
 from utils import fxn_crop_volume
