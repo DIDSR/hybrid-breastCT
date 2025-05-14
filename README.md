@@ -49,6 +49,8 @@ Each of these steps is embedded in ```hybrid-simulation.py```, found in the ```c
 2. Install required packages in a new Python environment
    
 ```
+conda create --name bct_env python=3.11
+conda activate bct_env
 pip install -r requirements.txt
 ```
 ## Getting Started with Other Breast CT Systems
