@@ -7,7 +7,7 @@ conda create --name bct_env python=3.11
 conda activate bct_env
 pip install -r requirements.txt
 ```
-3. Adapt ```hybrid-simulation.py``` and ```utils.py``` for your breast CT system. More info on homepage. 
+3. Adapt ```hybrid-simulation.py``` and ```utils/utils.py``` for your breast CT system. More info on homepage. 
 
 ### Usage
 ```hybrid-simulation.py``` can be run in command line. First, activate Python virtual environment. Then, run the following:
