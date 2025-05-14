@@ -46,7 +46,7 @@ Each of these steps is embedded in ```hybrid-simulation.py```, found in the ```c
 
 ## Requirements
 1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
-2. Install required packages in a new Python environment
+2. Setup and activate Python environment:
    
 ```
 conda create --name bct_env python=3.11
