@@ -3,9 +3,6 @@ This repository contains code for generating hybrid breast CT images combining s
 ![image](https://github.com/user-attachments/assets/539ca4a7-c2c6-46b8-8069-080405025048)
 
 Each of these steps is embedded in ```hybrid-simulation.py```, found in the ```code``` directory.
-## Code Features
-
-
 ### Define calc cluster model:
 - Generates calcification clusters with flexible configuration of:
   - Number of calcs
