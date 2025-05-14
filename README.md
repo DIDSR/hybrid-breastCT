@@ -7,7 +7,6 @@ This repository contains tools for generating hybrid breast CT images combining 
 
 ## Requirements
 1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
-for ray-tracing and tomographic reconstruction
 2. Install required packages in a new Python environment
    
 ```
