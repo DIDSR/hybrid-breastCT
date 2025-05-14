@@ -44,38 +44,6 @@ Each of these steps is embedded in ```hybrid-simulation.py```, found in the ```c
 - Extracts signal-present and signal-absent VOIs and maximum intensity projections (MIPs) for training, testing, or reader studies.
 
 
-## Setup and Requirements
-1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
-2. Setup and activate Python environment:
-   
-```
-conda create --name bct_env python=3.11
-conda activate bct_env
-pip install -r requirements.txt
-```
-
-## Usage
-```/code/hybrid-simulation.py``` can be run in command line. First, activate Python virtual environment. Then, run the following:
-```
-python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_calcs <NUM_CALCS> --calc_diameter_mm <CALC_DIAMETER_MM> --scanID <SCAN_ID>
-```
-
-where
-
-<CLUSTER_DIAMETER_MM> = diameter of spherical cluster in mm
-
-<NUM_CALCS> = # calcs in cluster
-
-<CALC_DIAMETER_MM> = calc diameter in mm
-
-<SCAN_ID> = scanID of patient images. Calc clusters will be inserted into these images.
-
-### EXAMPLE
-
-```
-python hybrid-simulation.py --cluster_diameter_mm 4.0 --num_calcs 5 --calc_diameter_mm 1.0 --scanID 2878
-```
-
 ## Getting Started with Other Breast CT Systems
 
 This simulation framework is designed to be adaptable across different breast CT platforms. While the original implementation uses data from the [Doheny Breast CT system](https://pmc.ncbi.nlm.nih.gov/articles/PMC4376760/), users can integrate their own patient datasets by updating a few key components of the pipeline.
@@ -139,6 +107,39 @@ If you wish to simulate realistic detector blur:
 If your system does not use TIGRE for reconstruction:
 - You can still use the calc simulation + projection pipeline.
 - Export `hybrid_prjstack` and reconstruct externally using your own algorithms.
+
+
+## Setup and Requirements
+1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
+2. Setup and activate Python environment:
+   
+```
+conda create --name bct_env python=3.11
+conda activate bct_env
+pip install -r requirements.txt
+```
+
+## Usage
+```/code/hybrid-simulation.py``` can be run in command line. First, activate Python virtual environment. Then, run the following:
+```
+python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_calcs <NUM_CALCS> --calc_diameter_mm <CALC_DIAMETER_MM> --scanID <SCAN_ID>
+```
+
+where
+
+<CLUSTER_DIAMETER_MM> = diameter of spherical cluster in mm
+
+<NUM_CALCS> = # calcs in cluster
+
+<CALC_DIAMETER_MM> = calc diameter in mm
+
+<SCAN_ID> = scanID of patient images. Calc clusters will be inserted into these images.
+
+### EXAMPLE
+
+```
+python hybrid-simulation.py --cluster_diameter_mm 4.0 --num_calcs 5 --calc_diameter_mm 1.0 --scanID 2878
+```
 
 
 ## Citation
