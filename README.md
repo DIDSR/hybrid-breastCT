@@ -10,7 +10,7 @@ This code simulates microcalcification clusters which are inserted into high-res
 
 ### System-Specific Data Loading
 - Loads real segmentation and projection data from breast CT scans.
-- Extracts scan geometry, cropping bounds, and scan-specific VOI centers.
+- Extracts scan geometry, cropping bounds, and pre-determined viable VOI centers (within breast boundaries).
 
 ---
 
