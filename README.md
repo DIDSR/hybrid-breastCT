@@ -4,7 +4,7 @@ This repository contains tools for generating hybrid breast CT images combining 
 
 ## Code Features
 
-This code simulates calcification clusters which are inserted in high-resolution breast CT projection images. Projection simulation and reconstruction are performed using the [TIGRE reconstruction toolbox](https://github.com/CERN/TIGRE/tree/master). Key features of the code include:
+This code simulates microcalcification clusters which are inserted into high-resolution breast CT projection images. Projection simulation and reconstruction are performed using the [TIGRE reconstruction toolbox](https://github.com/CERN/TIGRE/tree/master). Key features of the code include:
 
 - **Energy-Resolved Ray Tracing Simulation**
   - Supports polyenergetic X-ray spectra with energy binning and material-specific attenuation modeling.
