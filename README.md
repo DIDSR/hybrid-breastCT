@@ -1,8 +1,8 @@
 # hybrid-breastCT
-This repository contains tools for generating hybrid breast CT images combining simulated pathology with real anatomical background.
+This repository contains code for generating hybrid breast CT images combining simulated pathology with real anatomical background.
 ![image](https://github.com/user-attachments/assets/539ca4a7-c2c6-46b8-8069-080405025048)
 
-
+Each of these steps is embedded in ```hybrid-simulation.py```, found in the ```code``` directory.
 ## Code Features
 
 
@@ -37,8 +37,9 @@ NOTE: Projection simulation and reconstruction are performed using the [TIGRE re
 
 
 #### Hybrid breast CT volume:
-- Utilizes TIGRE CT reconstruction algorithms. Multiple algorithms supported: FDK, SART, CGLS, and MLEM.
-- Includes configurable apodization filters (e.g., Ram-Lak, Hann).
+- Utilizes TIGRE reconstruction algorithms to generate hybrid CT volume.
+  - Multiple algorithms supported: FDK, SART, CGLS, and MLEM.
+  - Apodization filters can be modified for FDK algorithm (e.g., Ram-Lak, Hann).
 
 
 #### Hybrid breast CT ROI/VOI:
