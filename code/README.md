@@ -17,13 +17,13 @@ python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_ca
 
 where
 
-<CLUSTER_DIAMETER_MM> = diameter of spherical cluster in mm
+```<CLUSTER_DIAMETER_MM>``` = diameter of spherical cluster in mm
 
-<NUM_CALCS> = # calcs in cluster
+```<NUM_CALCS>``` = # calcs in cluster
 
-<CALC_DIAMETER_MM> = calc diameter in mm
+```<CALC_DIAMETER_MM>``` = calc diameter in mm
 
-<SCAN_ID> = scanID of patient images. Calc clusters will be inserted into these images.
+```<SCAN_ID>``` = scanID of patient images. Calc clusters will be inserted into these images.
 
 ### Example
 
