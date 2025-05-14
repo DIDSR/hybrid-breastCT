@@ -11,27 +11,26 @@ This code simulates calcification clusters in high-resolution breast CT volumes 
   - Quantum Detection Efficiency (QDE) modeled using Cesium Iodide (CsI) detector material.
 
 - **Customizable Calcification Cluster Generator**
-  - Simulates spherical microcalcifications embedded in breast tissue.
+  - Simulates microcalcifications randomly distributed in a spherical cluster
   - Allows flexible configuration of:
     - Number of calcs per cluster
-    - Cluster size
+    - Cluster diameter
     - Calc shape and density
 
 - **Patient-Specific Volume Integration**
   - Loads real segmentation and projection data from breast CT scans.
-  - Crops, upsamples, and inserts calc clusters into fibroglandular tissue only, preserving anatomical realism.
+  - Crops, upsamples, and inserts calc clusters into background, preserving anatomical realism.
 
 - **Projection Simulation and Detector Modeling**
   - Simulates forward projections for each energy bin using TIGRE's GPU-accelerated ray tracing.
   - Applies detector Modulation Transfer Function (MTF) blurring.
 
 - **Reconstruction Pipeline**
-  - Supports multiple reconstruction algorithms (FDK, SART, CGLS, MLEM) with configurable filters (e.g., Ram-Lak, Hann).
-  - Outputs 3D volumes and MIPs for each reconstructed VOI (Volume of Interest).
+  - Supports multiple reconstruction algorithms (FDK, SART, CGLS, MLEM) with configurable apodization filters (e.g., Ram-Lak, Hann).
+  - Outputs 3D volumes and maximum intensity projections (MIPs) for each reconstructed VOI (Volume of Interest).
 
 - **Modular and Configurable Design**
   - Paths, geometry, material files, voxel sizes, and reconstruction options can be easily set by user parameters.
-  - Uses helper functions for modularity and reproducibility.
 
 - **Batch Processing of VOIs**
   - Automatically inserts calc clusters at predefined or randomly selected VOI centers.
