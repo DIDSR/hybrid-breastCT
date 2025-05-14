@@ -5,7 +5,7 @@ First, activate the Python virtual environment.
 
 Then, run the following with the command line arguments:
 ```
-python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_calcs <NUM_CALCS> --calc_diameter_mm <CALC_DIAMETER_MM> --scanID <SCANID>
+python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_calcs <NUM_CALCS> --calc_diameter_mm <CALC_DIAMETER_MM> --scanID <SCAN_ID>
 ```
 
 <CLUSTER_DIAMETER_MM> = diameter of spherical cluster in mm
