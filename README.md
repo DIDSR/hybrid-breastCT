@@ -24,27 +24,30 @@ This code simulates microcalcification clusters which are inserted into high-res
 
 ---
 
-### Customizable Calcification Cluster Generator
-- Simulates microcalcifications randomly distributed in a spherical cluster.
+### Calcification Cluster Generator
+- Randomly distributes simulated microcalcifications within a spherical cluster boundary
 - Allows flexible configuration of:
   - Number of calcs
   - Cluster diameter
-  - Calc shape and density
-
+  - Calc diameter
+    
 ---
 
 ### Object Generation (voxelized phantom suspended in air, to undergo ray tracing projection)
 - Background tissue type at insertion site (VOI centers) is identified based on patient segmentation volume
-- Assigns object different values depending on the linear attenuation coefficients of calcification and background tissue
+- Assigns object different values depending on density and linear attenuation coefficients of calcification and background tissue
+- Object may be cropped (to reduce computational burden) and resampled (to increase object resolution)
 
-### Energy-Resolved Ray Tracing Simulation
+---
+
+### Polyenergetic Ray Tracing Simulation
 - Supports polyenergetic X-ray spectra with energy binning.
 - Models energy-dependent attenuation for multiple materials.
 - Applies detector Quantum Detection Efficiency (QDE) using CsI thickness.
 
 ---
 
-### 🖼Projection Simulation and Insertion
+### Projection Simulation and Insertion
 - Generates synthetic projections of inserted calcs using TIGRE’s GPU-accelerated ray tracing.
 - Applies detector blur using Modulation Transfer Function (MTF).
 - Combines simulated calc projections with real patient projections to create hybrid projection images.
@@ -57,7 +60,7 @@ This code simulates microcalcification clusters which are inserted into high-res
 
 ---
 
-### Batch Processing of VOIs
+### VOI Extraction and Display
 - Extracts signal-present and signal-absent VOIs for downstream training, testing, or reader studies.
 - Displays VOIs as 3D VOIs or 2D maximum intensity projections (MIPs)
 
