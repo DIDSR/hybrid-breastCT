@@ -44,11 +44,11 @@ This code simulates microcalcification clusters which are inserted into high-res
 - Supports polyenergetic X-ray spectra with energy binning.
 - Models energy-dependent attenuation for multiple materials.
 - Applies detector Quantum Detection Efficiency (QDE) using CsI thickness.
+- Generates projections of inserted calcs using TIGRE’s GPU-accelerated ray tracing.
 
 ---
 
-### Projection Simulation and Insertion
-- Generates synthetic projections of inserted calcs using TIGRE’s GPU-accelerated ray tracing.
+### Blurring and Insertion
 - Applies detector blur using Modulation Transfer Function (MTF).
 - Combines simulated calc projections with real patient projections to create hybrid projection images.
 
@@ -128,24 +128,26 @@ labels = {
 
 ---
 
-### 5. Projection Preprocessing
+**### 5. Projection Preprocessing**
 Check if your projection data is already normalized:
 - If raw, you may need to apply flat-field correction (e.g., using I₀ or flood-field data).
 - If preprocessed, ensure the log-normalization step in `fxn_load_projections_and_geometry(...)` is either updated or skipped.
 
 ---
 
-### 6. Detector MTF
+**### 6. Detector MTF**
 If you wish to simulate realistic detector blur:
 - Replace `Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv` with your system’s measured MTF curve.
 - Format the file as `[frequency (lp/mm), MTF value]` and update the path used in the script.
 
 ---
 
-### 7. Optional Reconstruction Flexibility
+**### 7. Optional Reconstruction Flexibility**
 If your system does not use TIGRE for reconstruction:
 - You can still use the calc simulation + projection pipeline.
 - Export `hybrid_prjstack` and reconstruct externally using your own algorithms.
+
+
 ## Citation
 
 "_Hybrid simulation of breast CT for assessing microcalcification detectability_". Lyu SH, Makeev A, Li D, Badal A, Hernandez AM, Boone JM, Glick SJ.
