@@ -46,7 +46,54 @@ This code simulates microcalcification clusters which are inserted into high-res
 ```
 pip install -r requirements.txt
 ```
+## 🚀 Getting Started with Other Breast CT Systems
 
+This simulation framework is designed to be adaptable across different breast CT platforms. While the original implementation uses data from the Doheny Breast CT system, users can integrate their own patient datasets by updating a few key components of the pipeline.
+
+Below are the parameters and functions you’ll need to modify or replace for compatibility with your system:
+
+---
+
+### 🔄 1. File Paths and Data Formats
+Update file I/O functions to match your system’s file structure and formats:
+- Replace **segmentation loading** logic in `fxn_load_seg(...)` if your data is in DICOM, NIfTI, or other formats.
+- Adapt `fxn_load_projections_and_geometry(...)` to read your projection files, angle data, and calibration metadata.
+- Update `fxn_getVOIcenters(...)` to generate or supply VOI center coordinates (e.g., from external software or manually).
+
+---
+
+### 📐 2. Geometry and Detector Configuration
+Your CT system’s geometric setup must be reflected in the code:
+- Update parameters such as:
+  - `DSD` (Source-to-detector distance)
+  - `DSO` (Source-to-object distance)
+  - Detector pixel size and resolution
+  - Voxel size of reconstructed volume
+- Modify how these are initialized in `fxn_load_projections_and_geometry(...)` and `fxn_alter_geometry(...)`.
+
+---
+
+### 🌡️ 3. X-ray Spectrum and Material Properties
+The simulation depends on accurate modeling of energy-dependent attenuation:
+- Replace `W60kVp_0.2mmGd.spc` with your system’s X-ray spectrum in `.txt` or `.spc` format.
+- Provide your own attenuation coefficient files for:
+  - Calcification material (e.g., calcium oxalate or hydroxyapatite)
+  - Adipose and glandular tissue
+  - Detector material (e.g., CsI)
+- Update these inputs in the `material_files/` directory and ensure compatibility with `fxn_read_material_file(...)`.
+
+---
+
+### 🧪 4. Tissue Segmentation Labels
+Ensure the code uses the correct label IDs for your dataset:
+
+```python
+labels = {
+    'air': 0,
+    'adipose': 1,
+    'glandular': 2,
+    'skin': 5
+}
 
 ## Citation
 
