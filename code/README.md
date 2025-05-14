@@ -9,8 +9,11 @@ python hybrid-simulation.py --cluster_diameter_mm <CLUSTER_DIAMETER_MM> --num_ca
 ```
 
 <CLUSTER_DIAMETER_MM> = diameter of spherical cluster 
+
 <NUM_CALCS> = # calcs in cluster
+
 <CALC_DIAMETER_MM> = calc diameter 
+
 <SCANID> = scanID of patient images. Calc clusters will be inserted into these images.
 
 ## EXAMPLE
