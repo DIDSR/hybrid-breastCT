@@ -546,15 +546,6 @@ def fxn_mtf_blur(prjstack_calcs, dexel_mm, f_MTF, mtf_MTF):
 
     return blurred_prjstack_calcs
 
-import sys
-import pandas as pd
-
-def fxn_get_size_of_globals(min_size=0):
-    sizes = {name: sys.getsizeof(value) for name, value in globals().items()}
-    filtered_sizes = {name: size for name, size in sizes.items() if size >= min_size and not name.startswith('__')}
-    sorted_sizes = sorted(filtered_sizes.items(), key=lambda x: x[1], reverse=True)
-    return sorted_sizes
-
 def fxn_extract_and_save_vois(rec, recon_alg, folder_suffix, scanID, loc_save_patches, loc_save_MIPjpgs, calc_diameter_mm, cluster_diameter_mm, num_calcs, density, num_SPvois_perbreast, voi_centers_mm_SP, voi_centers_mm_SA, recon_size_mm, voi_halfdim_vx, flagHU):
     num_SAvois_perbreast = num_SPvois_perbreast
 
