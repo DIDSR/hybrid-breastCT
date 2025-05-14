@@ -2,17 +2,17 @@
 This repository contains tools for generating hybrid breast CT images combining simulated pathology with real anatomical background.
 ![image](https://github.com/user-attachments/assets/539ca4a7-c2c6-46b8-8069-080405025048)
 
-## Code Features
+# Code Features
 
 This code simulates microcalcification clusters which are inserted into high-resolution breast CT projection images. Projection simulation and reconstruction are performed using the [TIGRE reconstruction toolbox](https://github.com/CERN/TIGRE/tree/master). Key features of the code include:
 
----
+
 
 ### System-Specific Data Loading
 - Loads real segmentation and projection data from breast CT scans.
 - Extracts scan geometry, cropping bounds, and pre-determined viable VOI centers (within breast boundaries).
 
----
+
 
 ### Configurable Simulation Parameters
 - User-defined control of simulation inputs via command-line arguments or script parameters:
@@ -22,7 +22,7 @@ This code simulates microcalcification clusters which are inserted into high-res
   - Reconstruction algorithm and filter
   - Voxel size and energy spectrum resolution
 
----
+
 
 ### Calcification Cluster Generator
 - Randomly distributes simulated microcalcifications within a spherical cluster boundary
@@ -31,14 +31,14 @@ This code simulates microcalcification clusters which are inserted into high-res
   - Cluster diameter
   - Calc diameter
     
----
+
 
 ### Object Generation (voxelized phantom suspended in air, to undergo ray tracing projection)
 - Background tissue type at insertion site (VOI centers) is identified based on patient segmentation volume
 - Assigns object different values depending on density and linear attenuation coefficients of calcification and background tissue
 - Object may be cropped (to reduce computational burden) and resampled (to increase object resolution)
 
----
+
 
 ### Polyenergetic Ray Tracing Simulation
 - Supports polyenergetic X-ray spectra with energy binning.
@@ -46,50 +46,49 @@ This code simulates microcalcification clusters which are inserted into high-res
 - Applies detector Quantum Detection Efficiency (QDE) using CsI thickness.
 - Generates projections of inserted calcs using TIGRE’s GPU-accelerated ray tracing.
 
----
+
 
 ### Blurring and Insertion
 - Applies detector blur using Modulation Transfer Function (MTF).
 - Combines simulated calc projections with real patient projections to create hybrid projection images.
 
----
+
 
 ### Reconstruction Pipeline
 - Supports multiple algorithms: FDK, SART, CGLS, and MLEM.
 - Includes configurable apodization filters (e.g., Ram-Lak, Hann).
 
----
+
 
 ### VOI Extraction and Display
 - Extracts signal-present and signal-absent VOIs for downstream training, testing, or reader studies.
 - Displays VOIs as 3D VOIs or 2D maximum intensity projections (MIPs)
 
----
+
 
 ### Metadata Logging and Reproducibility
 - Stores detailed metadata including geometry, material files, densities, spectrum settings, and reconstruction config.
 - Ensures reproducibility and traceability across simulation runs.
 
-## Requirements
+# Requirements
 1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
 2. Install required packages in a new Python environment
    
 ```
 pip install -r requirements.txt
 ```
-## Getting Started with Other Breast CT Systems
+# Getting Started with Other Breast CT Systems
 
 This simulation framework is designed to be adaptable across different breast CT platforms. While the original implementation uses data from the [Doheny Breast CT system](https://pmc.ncbi.nlm.nih.gov/articles/PMC4376760/), users can integrate their own patient datasets by updating a few key components of the pipeline.
 
 Below are the parameters and functions you’ll need to modify or replace for compatibility with your system:
 
----
 
 ### 1. File Paths and Data Formats
 Update file I/O functions to match your system’s file structure and formats:
 - Replace **segmentation loading** logic in `fxn_load_seg(...)` if your data is in DICOM, NIfTI, or other formats.
 - Adapt `fxn_load_projections_and_geometry(...)` to read your projection files, angle data, and calibration metadata.
-- Update `fxn_getVOIcenters(...)` to generate or supply VOI center coordinates (e.g., from external software or manually).
+- Update `fxn_getVOIcenters(...)` to generate or supply VOI center coordinates (e.g., from external software or manually). VOIs should be contained within the breast.
 
 ---
 
@@ -125,35 +124,36 @@ labels = {
     'glandular': 2,
     'skin': 5
 }
+```
 
 ---
 
-**### 5. Projection Preprocessing**
+### 5. Projection Preprocessing
 Check if your projection data is already normalized:
 - If raw, you may need to apply flat-field correction (e.g., using I₀ or flood-field data).
 - If preprocessed, ensure the log-normalization step in `fxn_load_projections_and_geometry(...)` is either updated or skipped.
 
 ---
 
-**### 6. Detector MTF**
+### 6. Detector MTF
 If you wish to simulate realistic detector blur:
 - Replace `Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv` with your system’s measured MTF curve.
 - Format the file as `[frequency (lp/mm), MTF value]` and update the path used in the script.
 
 ---
 
-**### 7. Optional Reconstruction Flexibility**
+### 7. Optional Reconstruction
 If your system does not use TIGRE for reconstruction:
 - You can still use the calc simulation + projection pipeline.
 - Export `hybrid_prjstack` and reconstruct externally using your own algorithms.
 
 
-## Citation
+# Citation
 
 "_Hybrid simulation of breast CT for assessing microcalcification detectability_". Lyu SH, Makeev A, Li D, Badal A, Hernandez AM, Boone JM, Glick SJ.
 Journal of Medical Imaging, 2025.
 
-## More information
+# More information
 
 [Catalog of Regulatory Science Tools to Help Assess New Medical Devices](https://www.fda.gov/medical-devices/science-and-research-medical-devices/catalog-regulatory-science-tools-help-assess-new-medical-devices)
 
