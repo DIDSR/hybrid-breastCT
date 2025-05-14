@@ -1,13 +1,22 @@
 ## Setup
-1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
-2. Setup and activate Python environment:
-   
+1. To clone this repository to your local machine, open a terminal and run:
+```
+git clone https://github.com/DIDSR/hybrid-breastCT.git
+```
+
+2. Activate a new Conda environment:
 ```
 conda create --name bct_env python=3.11
 conda activate bct_env
+```
+3. Install required Python packages using pip: 
+```
 pip install -r requirements.txt
 ```
-3. Adapt ```hybrid-simulation.py``` and ```utils.py``` for your breast CT system. More info on homepage. 
+
+4. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
+5. Customize ```hybrid-simulation.py``` and ```utils.py``` for your breast CT system. More info on homepage.
+
 
 ## Usage
 ```hybrid-simulation.py``` can be run in command line. First, activate Python virtual environment. Then, run the following:
