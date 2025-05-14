@@ -6,9 +6,7 @@ Each of these steps is embedded in ```hybrid-simulation.py```, found in the ```c
 ## Code Features
 
 
-NOTE: Projection simulation and reconstruction are performed using the [TIGRE reconstruction toolbox](https://github.com/CERN/TIGRE/tree/master). 
-
-#### Define calc cluster model:
+### Define calc cluster model:
 - Generates calcification clusters with flexible configuration of:
   - Number of calcs
   - Cluster diameter
@@ -17,32 +15,32 @@ NOTE: Projection simulation and reconstruction are performed using the [TIGRE re
 - OPTIONAL: Object may be cropped (to reduce computational burden) and resampled (to increase object resolution)
   
 
-#### Simulate x-ray projections of clusters:
+### Simulate x-ray projections of clusters:
 - Supports polyenergetic X-ray spectra with energy binning.
 - Applies detector Quantum Detection Efficiency (QDE) using CsI thickness.
-- Generates projections of inserted calcs using TIGRE’s GPU-accelerated ray tracing.
+- Generates projections of inserted calcs using [TIGRE reconstruction toolbox](https://github.com/CERN/TIGRE/tree/master) GPU-accelerated ray tracing.
 
 
-#### Blurred x-ray projections of clusters: 
+### Blurred x-ray projections of clusters: 
 - Applies detector blur using Modulation Transfer Function (MTF).
 
 
-#### Patient x-ray projections (anatomical background):
+### Patient x-ray projections (anatomical background):
 - Loads real segmentation and patient breast CT projection data.
 - Extracts scan parameters, system geometry, and viable VOI centers for calc insertion.
 
 
-#### Hybrid projection images:
+### Hybrid projection images:
 - Combines simulated calc projections with real patient projections to create hybrid projection images.
 
 
-#### Hybrid breast CT volume:
-- Utilizes TIGRE reconstruction algorithms to generate hybrid CT volume.
+### Hybrid breast CT volume:
+- Utilizes [TIGRE](https://github.com/CERN/TIGRE/tree/master) reconstruction algorithms to generate hybrid CT volume.
   - Multiple algorithms supported: FDK, SART, CGLS, and MLEM.
   - Apodization filters can be modified for FDK algorithm (e.g., Ram-Lak, Hann).
 
 
-#### Hybrid breast CT ROI/VOI:
+### Hybrid breast CT ROI/VOI:
 - Extracts signal-present and signal-absent VOIs and maximum intensity projections (MIPs) for training, testing, or reader studies.
 
 
