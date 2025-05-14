@@ -1,7 +1,5 @@
 ## RUNNING THE SOFTWARE
-hybrid-simulation.py can be run in command line. 
-
-First, activate the Python virtual environment.
+hybrid-simulation.py can be run in command line. First, activate the Python virtual environment.
 
 Then, run the following with the command line arguments:
 ```
