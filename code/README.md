@@ -9,12 +9,11 @@ git clone https://github.com/DIDSR/hybrid-breastCT.git
 conda create --name bct_env python=3.11
 conda activate bct_env
 ```
-3. Install required Python packages using pip: 
+3. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
+4. Install required Python packages using pip: 
 ```
 pip install -r requirements.txt
 ```
-
-4. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
 5. Customize ```hybrid-simulation.py``` and ```utils.py``` for your breast CT system. More info on homepage.
 
 
