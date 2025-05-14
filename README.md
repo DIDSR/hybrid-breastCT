@@ -4,6 +4,41 @@ This repository contains tools for generating hybrid breast CT images combining 
 
 ## Code Features
 
+This code simulates calcification clusters in high-resolution breast CT volumes and performs projection simulation and reconstruction using the TIGRE toolbox. Key features include:
+
+- **Energy-Resolved Ray Tracing Simulation**
+  - Supports polyenergetic X-ray spectra with energy binning and material-specific attenuation modeling.
+  - Quantum Detection Efficiency (QDE) modeled using Cesium Iodide (CsI) detector material.
+
+- **Customizable Calcification Cluster Generator**
+  - Simulates spherical microcalcifications embedded in breast tissue.
+  - Allows flexible configuration of:
+    - Number of calcs per cluster
+    - Cluster size
+    - Calc shape and density
+
+- **Patient-Specific Volume Integration**
+  - Loads real segmentation and projection data from breast CT scans.
+  - Crops, upsamples, and inserts calc clusters into fibroglandular tissue only, preserving anatomical realism.
+
+- **Projection Simulation and Detector Modeling**
+  - Simulates forward projections for each energy bin using TIGRE's GPU-accelerated ray tracing.
+  - Applies detector Modulation Transfer Function (MTF) blurring.
+
+- **Reconstruction Pipeline**
+  - Supports multiple reconstruction algorithms (FDK, SART, CGLS, MLEM) with configurable filters (e.g., Ram-Lak, Hann).
+  - Outputs 3D volumes and MIPs for each reconstructed VOI (Volume of Interest).
+
+- **Modular and Configurable Design**
+  - Paths, geometry, material files, voxel sizes, and reconstruction options can be easily set by user parameters.
+  - Uses helper functions for modularity and reproducibility.
+
+- **Batch Processing of VOIs**
+  - Automatically inserts calc clusters at predefined or randomly selected VOI centers.
+  - Separates signal-present and signal-absent VOIs for downstream analysis.
+
+- **Metadata Logging**
+  - Stores simulation and reconstruction parameters for each experiment to ensure reproducibility.
 
 ## Requirements
 1. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
