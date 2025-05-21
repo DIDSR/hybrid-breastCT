@@ -95,7 +95,7 @@ calc_diameter_mm = args.calc_diameter_mm
 scanID = args.scanID
 
 # Load Doheny patient scan log
-file_path = os.path.join(home_dir,'a_CalcSimulation','ScanLog_Doheny_Calcs.xlsx')
+file_path = os.path.join(home_dir,'ScanLog_Doheny_Calcs.xlsx')
 df = pd.read_excel(file_path, sheet_name='Crop300')
 
 # Extract columns
