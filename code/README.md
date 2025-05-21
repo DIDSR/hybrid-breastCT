@@ -50,6 +50,9 @@ The simulation depends on accurate modeling of energy-dependent attenuation:
 - Ensure compatibility with `fxn_read_material_file(...)`.
 - Instructions for generating your own material files and energy spectra are found in `/material_files/README.md` and `/energy_spectra/README.md`
 
+### 4. System-specific inputs
+
+
 
 ### 4. Tissue Segmentation Labels
 Ensure the code uses the correct label IDs for your dataset:
@@ -72,7 +75,7 @@ Check if your projection data is already normalized:
 
 ### 6. Detector MTF
 If you wish to simulate realistic detector blur:
-- Replace `Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv` with your system’s measured MTF curve.
+- Replace `system_specific/Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv` with your system’s measured MTF curve.
 - Format the file as `[frequency (lp/mm), MTF value]` and update the path used in the script.
 
 
