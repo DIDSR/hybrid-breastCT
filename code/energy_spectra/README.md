@@ -4,3 +4,8 @@ Spectrum generated using Siemens' online tool, based on data from:
 
 Spectrum generated using DIDSR's online tool: (Miguel Lago, 8/28/2023)
     https://malago86.github.io/spectrumCalculator/
+
+   Based on data from:
+   Hernandez, A.M., Seibert, J.A., Nosratieh, A. and Boone, J.M. (2017), Generation and analysis 
+   of clinically relevant breast imaging x-ray spectra. Med. Phys., 44: 2148-2160
+    https://doi.org/10.1002/mp.12222
