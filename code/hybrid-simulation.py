@@ -95,7 +95,7 @@ calc_diameter_mm = args.calc_diameter_mm
 scanID = args.scanID
 
 # Load Doheny patient scan log
-file_path = os.path.join(home_dir,'scanlog.xlsx')
+file_path = os.path.join(home_dir, 'system_specific', 'scanlog.xlsx')
 df = pd.read_excel(file_path, sheet_name='log')
 
 # Extract columns
@@ -125,7 +125,7 @@ energy_levels['glandular'], mu_cm['glandular'] = fxn_read_material_file(loc_mate
 QDE_CsI = 1 - np.exp(-mu_cm['csI'] * (csI_thickness_mm / 10))
 
 # Load Doheny detector MTF
-datatable = pd.read_csv(os.path.join(home_dir,  'a_CalcSimulation', 'Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv'), header=None)
+datatable = pd.read_csv(os.path.join(home_dir,  'system_specific', 'Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv'), header=None)
 f_MTF = np.abs(datatable.iloc[:, 0].values)
 mtf_MTF = datatable.iloc[:, 1].values
 
