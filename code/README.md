@@ -42,12 +42,13 @@ Your CT system’s geometric setup must be reflected in the code:
 
 ### 3. X-ray Spectrum and Material Properties
 The simulation depends on accurate modeling of energy-dependent attenuation:
-- Replace `W60kVp_0.2mmGd.spc` with your system’s X-ray spectrum in `.txt` or `.spc` format.
-- Provide your own attenuation coefficient files for:
+- Replace `/energy_spectra/W60kVp_0.2mmGd.spc` with your system’s X-ray spectrum in `.txt` or `.spc` format.
+- In `/material_files`, use or provide your own attenuation coefficient files for:
   - Calcification material (e.g., calcium oxalate or hydroxyapatite)
   - Adipose and glandular tissue
   - Detector material (e.g., CsI)
-- Update these inputs in the `material_files/` directory and ensure compatibility with `fxn_read_material_file(...)`.
+- Ensure compatibility with `fxn_read_material_file(...)`.
+- Instructions for generating your own material files and energy spectra are found in `/material_files/README.md` and `/energy_spectra/README.md`
 
 
 ### 4. Tissue Segmentation Labels
