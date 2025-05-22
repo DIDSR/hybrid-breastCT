@@ -1,4 +1,6 @@
-Generate new x-ray spectra using any of the following tools:
+Sample x-ray spectra are included in this directory.
+
+To generate new x-ray spectra, consider using these tools:
 
 - TASMICS: Tungsten anode spectral model using interpolating cubic spines, *available by emailing Andrew M. Hernandez (amhern@ucdavis.edu)*
 
