@@ -15,16 +15,16 @@ print(datetime.now(),flush=True)
 # USER INPUT  ##################################################################################################
 
 # Define paths and directories
-home_dir = '/path/to/home/dir/'
+home_dir = '/path/to/home/dir/'                                       # 
 data_dir = '/path/to/data/dir/' 
 voi_center_dir  = '/path/to/voi/center/dir'
-loc_spectra = os.path.join(home_dir,'energy_spectra', 'W60kVp_0.2mmGd.spc')
+loc_spectra = os.path.join(home_dir, 'system_specific', 'energy_spectra', 'W60kVp_0.2mmGd.spc')
 loc_material_files = {
-    'calc': os.path.join(home_dir,'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
-    #'calc': os.path.join(home_dir, 'material_files', 'Hydroxyapatite__5-120keV.mcgpu'),
-    'adipose': os.path.join(home_dir,'material_files', 'adipose__5-120keV.mcgpu'),
-    'glandular': os.path.join(home_dir,'material_files', 'glandular__5-120keV.mcgpu'),
-    'csI': os.path.join(home_dir,'material_files', 'CesiumIodide__5-120keV.txt')
+    'calc': os.path.join(home_dir, 'system_specific', 'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
+    #'calc': os.path.join(home_dir, 'system_specific', 'material_files', 'Hydroxyapatite__5-120keV.mcgpu'),
+    'adipose': os.path.join(home_dir, 'system_specific', 'material_files', 'adipose__5-120keV.mcgpu'),
+    'glandular': os.path.join(home_dir, 'system_specific', 'material_files', 'glandular__5-120keV.mcgpu'),
+    'csI': os.path.join(home_dir, 'system_specific', 'material_files', 'CesiumIodide__5-120keV.txt')
 }
 
 # Define path for output data
