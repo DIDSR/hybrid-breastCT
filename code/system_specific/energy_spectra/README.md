@@ -7,5 +7,4 @@ Generate new x-ray spectra using any of the following tools:
 - DIDSR's online tool: (Miguel Lago, 08/2023) https://malago86.github.io/spectrumCalculator/, based on data from:
 
   A. M. Hernandez, J. A. Seibert, A. Nosratieh, J. M. Boone (2017), "Generation and analysis 
-   of clinically relevant breast imaging x-ray spectra", Med. Phys., 44: 2148-2160
-    https://doi.org/10.1002/mp.12222
+   of clinically relevant breast imaging x-ray spectra", Med. Phys., 44: 2148-2160, doi.org/10.1002/mp.12222
