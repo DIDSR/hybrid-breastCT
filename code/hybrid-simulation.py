@@ -15,9 +15,10 @@ print(datetime.now(),flush=True)
 # USER INPUT  ##################################################################################################
 
 # Define paths and directories
-home_dir = '/path/to/home/dir/'                                       # 
-data_dir = '/path/to/data/dir/' 
+home_dir = '/path/to/home/dir/'                                       # for code and relevant files
+data_dir = '/path/to/data/dir/'                                       # larger storage containing patient data. hybrid images will output here
 voi_center_dir  = '/path/to/voi/center/dir'
+
 loc_spectra = os.path.join(home_dir, 'system_specific', 'energy_spectra', 'W60kVp_0.2mmGd.spc')
 loc_material_files = {
     'calc': os.path.join(home_dir, 'system_specific', 'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
@@ -29,7 +30,7 @@ loc_material_files = {
 
 # Define path for output data
 loc_save_MIPjpgs = os.path.join(data_dir, 'CalcPatches', 'MIPjpgs/')   # jpgs of MIP images
-loc_save_patches = os.path.join(data_dir, 'CalcPatches', 'Patches/')   # patches = final images in MIP or VOI form
+loc_save_patches = os.path.join(data_dir, 'CalcPatches', 'Patches/')   # patches = final images displayed in MIP or VOI, in raw form
 
 # Desired voxel size of object (microns)
 new_vx_um            = 30
@@ -37,18 +38,18 @@ new_vx_um            = 30
 # Ray tracing projection parameters
 energy_bin_size_keV  = 1
 csI_thickness_mm     = 0.45
-xsiz, ysiz           = 2048, 1536     # detector pixels in x direction, y direction
+xsiz, ysiz           = 2048, 1536          # detector pixels in x direction, y direction
 dexel_mm             = 0.150
 vertical_offset_mm   = -30
 
 # VOI parameters
-num_SPvois_perbreast = 50             # max # signal present VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
-num_SAvois_perbreast = 50             # max # signal absent VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
+num_SPvois_perbreast = 50                  # max # signal present VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
+num_SAvois_perbreast = 50                  # max # signal absent VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
 voi_size_mm = 8
 
 # Set material densities
 density = {
-    'calc': 2.12 * 0.84,  # Pure calcium oxalate*0.84 (Warren 2013)
+    'calc': 2.12 * 0.84,                   # Pure calcium oxalate * 0.84 (Warren 2013)
     'adipose': 0.920,
     'glandular': 1.035,
     'csI': 4.510
@@ -56,17 +57,17 @@ density = {
 
 # Calc cluster parameters
 calc_shape           = 'sphere'
-clusterCenteredFLAG  = 0  # [0 or 1] Center cluster within VOI
+clusterCenteredFLAG  = 0                   # [0 or 1] Center cluster within VOI
 
 # Reconstruction parameters
 kernels              = ['hann','shepp_logan', 'cosine', 'ram_lak']
-recon_algorithms     = ['FDK'] #['FDK', 'SART', 'CGLS', 'MLEM']
+recon_algorithms     = ['FDK']             #['FDK', 'SART', 'CGLS', 'MLEM']
 iterations           = 30                  # called if using iterative recon algorithm
 flagHU               = 0  # [0:mu  1:HU]   # output CT voxel values in mu or HU form
-effective_energy_keV = 36.2   # of current x-ray spectrum.
-mu_water             = 0.298  # mu of water at effective energy of 36.2keV, used for conversion from mu to HU
+effective_energy_keV = 36.2                # of current x-ray spectrum.
+mu_water             = 0.298               # mu of water at effective energy of 36.2keV, used for conversion from mu to HU
 
-# Flags for saving outputs
+# Flag for saving outputs into data_dir
 savepatchesFLAG      = 1
 
 ####################################################################################################################
