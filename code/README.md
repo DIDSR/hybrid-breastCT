@@ -34,9 +34,10 @@ labels = {
   - `DSD` (Source-to-detector distance)
   - `DSO` (Source-to-object distance)
   - Detector pixel size
-  - Number of projections
+  - Number of projection angles in the acquisition
   - Angles of acquisition
-- Measured detector modulation transfer function (MTF) for your system
+- 1D or 2D detector modulation transfer function (MTF) for your system
+    note: measure at face of detector
 
 #### OPTIONAL
 - CT reconstruction algorithm
@@ -128,7 +129,7 @@ kernels              = ['hann','shepp_logan', 'cosine', 'ram_lak']  # Refer to T
 recon_algorithms     = ['FDK']             #['FDK', 'SART', 'CGLS', 'MLEM'], refer to TIGRE documentation
 iterations           = 30                  # called if using iterative recon algorithm
 flagHU               = 0  # [0:mu  1:HU]   # output CT voxel values in mu or HU form
-effective_energy_keV = 36.2                # effective energy of current x-ray spectrum
+effective_energy_keV = 36.2                # effective energy of current x-ray spectrum, used for conversion from mu to HU.
 mu_water             = 0.298               # mu of water at effective energy of 36.2keV, used for conversion from mu to HU
 
 # Flag for saving outputs into data_dir
@@ -142,6 +143,7 @@ savepatchesFLAG      = 1
 - If you wish to simulate realistic detector blur:
   - Replace `system_specific/Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv` with your system’s measured detector MTF.
   - Format the file as `[frequency (lp/mm), MTF value]` and update the path used in the script.
+  - NOTE: `fxn_mtf_blur(prjstack_calcs, dexel_mm, f_MTF, mtf_MTF)` in `utils.py` assumes the measured MTF is 1D, and implements MTF blurring first in the X direction, then in the Y direction. If your measured MTF is in 2D, then `fxn_mtf_blur` should be modified to implement 2D MTF blur.
     
 #### NOTE: on ray-tracing OBJECT
 - To ensure optimal resolution of simulated ray-tracing object, a small object voxel size should be defined in `hybrid-simulation.py`.
