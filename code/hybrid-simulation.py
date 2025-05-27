@@ -19,6 +19,7 @@ code_dir = '/path/to/code/dir/'                                       # for code
 data_dir = '/path/to/data/dir/'                                       # larger storage containing patient data. hybrid images will output here
 voi_center_dir  = '/path/to/voi/center/dir'
 
+# Path for energy_spectra and material_files
 loc_spectra = os.path.join(code_dir, 'system_specific', 'energy_spectra', 'W60kVp_0.2mmGd.spc')
 loc_material_files = {
     'calc': os.path.join(code_dir, 'system_specific', 'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
