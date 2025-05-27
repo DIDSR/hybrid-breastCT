@@ -33,8 +33,8 @@ loc_material_files = {
 loc_save_MIPjpgs = os.path.join(data_dir, 'CalcPatches', 'MIPjpgs/')   # jpgs of MIP images
 loc_save_patches = os.path.join(data_dir, 'CalcPatches', 'Patches/')   # patches = final images displayed in MIP or VOI, in raw form
 
-# Desired voxel size of object (microns)
-new_vx_um            = 30                  # voxel size of ray-tracing object
+# Desired voxel size of ray-tracing object (microns)
+new_vx_um            = 30                 
 
 # Ray tracing projection parameters
 energy_bin_size_keV  = 1                   # polyenergetic simulation occurs at every ___ keV intervals
