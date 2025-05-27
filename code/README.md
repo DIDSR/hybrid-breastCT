@@ -14,7 +14,7 @@ conda activate bct_env
 ```
 pip install -r requirements.txt
 ```
-5. Customize ```hybrid-simulation.py```, ```utils.py```, and `system-specific` components for your breast CT system. More info below:
+5. Customize ```hybrid-simulation.py```, ```utils.py```, and directory `/system-specific` for your breast CT system. More info below:
 
 ## Customizing Code For Other Breast CT Systems
 
