@@ -61,6 +61,7 @@ data_dir = '/path/to/data/dir/'                                       # larger s
 - Upload patient projection images, patient segmentations, and any patient metadata  to `data_dir`.
 - Adapt `fxn_load_projections_and_geometry(...)` and `fxn_load_seg(...)` in `utils.py` to read patient data and reflect the geometry of your CT system.
 - Adapt `fxn_alter_geometry(...)` in `utils.py` if reconstruction geometry differs from acquisition geometry (e.g. binning, recon voxel size).
+- Refer to [TIGRE documentation](https://github.com/CERN/TIGRE/blob/master/Python/demos/d01_CreateGeometry.py) for additional help setting geometry 
 
 ### 2. X-ray Energy Spectrum and Material Files
 - Replace `system_specific/energy_spectra/W60kVp_0.2mmGd.spc` with your system’s X-ray spectrum in `.txt` or `.spc` format.
