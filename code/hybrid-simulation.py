@@ -133,7 +133,7 @@ mtf_MTF = datatable.iloc[:, 1].values
 
 from calc_models.fxn_generate_calc import fxn_generate_calc
 
-calc = fxn_generate_calc(new_vx_um*0.001,calc_diameter_mm,calc_shape,0)
+calc = fxn_generate_calc(new_vx_um*0.001, calc_diameter_mm, calc_shape, 0)
 half_dim = calc.shape[0]//2
 print(f"Calc shape: {calc.shape} with voxel size {new_vx_um*0.001} mm.\n",flush=True)
 
@@ -172,7 +172,7 @@ print(f"Elapsed time: {time.time() - start_time:.1f} seconds",flush=True)
 
 from utils import fxn_crop_volume
 
-FLAGchestwall = 0
+FLAGchestwall = 0    # Determines cutoff in Z direction. 0: exclude chest wall   1: include chest wall
 seg_volume_cropped, shift_mm_3D = fxn_crop_volume(iscan, seg_volume, original_vx_um, Nxyz, VcropLocs, FLAGchestwall)
 
 from utils import fxn_upsample_volume_in_sections
@@ -215,7 +215,7 @@ print(f"Elapsed time: {time.time() - start_time:.1f} seconds",flush=True)
 if np.any(volume_with_calcs == 1) or np.any(volume_with_calcs == 2):
     print('ERROR: calc was added into air or skin.',flush=True)
 
-# Calculate COR offset due to cropping volume
+# Calculate center of rotation (COR) offset due to cropping volume
 rowstart = int(VcropLocs[iscan, 0])
 rowend = int(VcropLocs[iscan, 1])
 colstart = int(VcropLocs[iscan, 2])
@@ -283,6 +283,9 @@ prjstack_calcs_blur_QDE_lognorm = -np.log(blurred_prjstack_calcs / total_I_o)
 # Add blurred calc projections to patient projection images
 hybrid_prjstack = (prjstack + prjstack_calcs_blur_QDE_lognorm).astype(np.float32)
 
+# NOTE: if using own reconstruction algorithm, export hybrid_prjstack and reconstruct externally using your own algorithm.
+
+# Delete large variables for memory conservation
 del prjstack_calcs_blur_QDE_lognorm, volume_with_calcs_mu_mm, sum_prjstack_calcs, blurred_prjstack_calcs, prjstack_calcs
 
 from utils import fxn_extract_and_save_vois, fxn_write_metadata
