@@ -65,7 +65,7 @@ kernels              = ['hann','shepp_logan', 'cosine', 'ram_lak']  # Refer to T
 recon_algorithms     = ['FDK']             #['FDK', 'SART', 'CGLS', 'MLEM'], refer to TIGRE documentation
 iterations           = 30                  # called if using iterative recon algorithm
 flagHU               = 0  # [0:mu  1:HU]   # output CT voxel values in mu or HU form
-effective_energy_keV = 36.2                # effective energy of current x-ray spectrum
+effective_energy_keV = 36.2                # effective energy of current x-ray spectrum, used for conversion from mu to HU
 mu_water             = 0.298               # mu of water at effective energy of 36.2keV, used for conversion from mu to HU
 
 # Flag for saving outputs into data_dir
