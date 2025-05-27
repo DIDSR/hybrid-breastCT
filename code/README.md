@@ -37,7 +37,7 @@ labels = {
   - Number of projection angles in the acquisition
   - Angles of acquisition
 - 1D or 2D detector modulation transfer function (MTF) for your system
-    note: measure at face of detector
+  - NOTE: measure at face of detector
 
 #### OPTIONAL
 - CT reconstruction algorithm
