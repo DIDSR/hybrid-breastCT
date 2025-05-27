@@ -15,17 +15,17 @@ print(datetime.now(),flush=True)
 # USER INPUT  ##################################################################################################
 
 # Define paths and directories
-home_dir = '/path/to/home/dir/'                                       # for code and relevant files
+code_dir = '/path/to/code/dir/'                                       # for code and relevant files
 data_dir = '/path/to/data/dir/'                                       # larger storage containing patient data. hybrid images will output here
 voi_center_dir  = '/path/to/voi/center/dir'
 
-loc_spectra = os.path.join(home_dir, 'system_specific', 'energy_spectra', 'W60kVp_0.2mmGd.spc')
+loc_spectra = os.path.join(code_dir, 'system_specific', 'energy_spectra', 'W60kVp_0.2mmGd.spc')
 loc_material_files = {
-    'calc': os.path.join(home_dir, 'system_specific', 'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
-    #'calc': os.path.join(home_dir, 'system_specific', 'material_files', 'Hydroxyapatite__5-120keV.mcgpu'),
-    'adipose': os.path.join(home_dir, 'system_specific', 'material_files', 'adipose__5-120keV.mcgpu'),
-    'glandular': os.path.join(home_dir, 'system_specific', 'material_files', 'glandular__5-120keV.mcgpu'),
-    'csI': os.path.join(home_dir, 'system_specific', 'material_files', 'CesiumIodide__5-120keV.txt')
+    'calc': os.path.join(code_dir, 'system_specific', 'material_files', 'CalciumOxalate__5-120keV.mcgpu'),
+    #'calc': os.path.join(code_dir, 'system_specific', 'material_files', 'Hydroxyapatite__5-120keV.mcgpu'),
+    'adipose': os.path.join(code_dir, 'system_specific', 'material_files', 'adipose__5-120keV.mcgpu'),
+    'glandular': os.path.join(code_dir, 'system_specific', 'material_files', 'glandular__5-120keV.mcgpu'),
+    'csI': os.path.join(code_dir, 'system_specific', 'material_files', 'CesiumIodide__5-120keV.txt')
 }
 
 # Define path for output data
@@ -96,7 +96,7 @@ calc_diameter_mm = args.calc_diameter_mm
 scanID = args.scanID
 
 # Load Doheny patient scan log
-file_path = os.path.join(home_dir, 'system_specific', 'scanlog.xlsx')
+file_path = os.path.join(code_dir, 'system_specific', 'scanlog.xlsx')
 df = pd.read_excel(file_path, sheet_name='log')
 
 # Extract columns
@@ -126,7 +126,7 @@ energy_levels['glandular'], mu_cm['glandular'] = fxn_read_material_file(loc_mate
 QDE_CsI = 1 - np.exp(-mu_cm['csI'] * (csI_thickness_mm / 10))
 
 # Load Doheny detector MTF
-datatable = pd.read_csv(os.path.join(home_dir,  'system_specific', 'Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv'), header=None)
+datatable = pd.read_csv(os.path.join(code_dir,  'system_specific', 'Doheny_DetectorMTF_2x2_0.4mm_focalspotblur.csv'), header=None)
 f_MTF = np.abs(datatable.iloc[:, 0].values)
 mtf_MTF = datatable.iloc[:, 1].values
 
@@ -312,7 +312,7 @@ for recon_alg in recon_algorithms:
                     kernel = 'shepplogan'
                 folder_suffix = kernel
                 fxn_extract_and_save_vois(rec, recon_alg, folder_suffix, scanID, loc_save_patches, loc_save_MIPjpgs, calc_diameter_mm, cluster_diameter_mm, num_calcs, density, num_SPvois_perbreast, voi_centers_mm_SP, voi_centers_mm_SA, recon_size_mm, voi_halfdim_vx, flagHU)
-                fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, home_dir, geo, ang)
+                fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, code_dir, geo, ang)
             elapsed_time = time.time() - start_time
             print(f"Kernel: {kernel} reconstruction completed in {elapsed_time:.1f} seconds", flush=True)
     elif recon_alg == 'SART':
@@ -324,7 +324,7 @@ for recon_alg in recon_algorithms:
         rec = np.rot90(rec, k=2, axes=(1, 2))
         if savepatchesFLAG == 1:
            fxn_extract_and_save_vois(rec, recon_alg, folder_suffix, scanID, loc_save_patches, loc_save_MIPjpgs, calc_diameter_mm, cluster_diameter_mm, num_calcs, density, num_SPvois_perbreast, voi_centers_mm_SP, voi_centers_mm_SA, recon_size_mm, voi_halfdim_vx, flagHU)
-           fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, home_dir, geo, ang)
+           fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, code_dir, geo, ang)
         elapsed_time = time.time() - start_time
         print(f"{recon_alg} reconstruction completed in {elapsed_time:.1f} seconds", flush=True)
     elif recon_alg == 'MLEM':
@@ -336,7 +336,7 @@ for recon_alg in recon_algorithms:
         rec = np.rot90(rec, k=2, axes=(1, 2))
         if savepatchesFLAG == 1:
            fxn_extract_and_save_vois(rec, recon_alg, folder_suffix, scanID, loc_save_patches, loc_save_MIPjpgs, calc_diameter_mm, cluster_diameter_mm, num_calcs, density, num_SPvois_perbreast, voi_centers_mm_SP, voi_centers_mm_SA, recon_size_mm, voi_halfdim_vx, flagHU)
-           fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, home_dir, geo, ang)
+           fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, code_dir, geo, ang)
         elapsed_time = time.time() - start_time
         print(f"{recon_alg} reconstruction completed in {elapsed_time:.1f} seconds", flush=True)
     elif recon_alg == 'CGLS':
@@ -348,7 +348,7 @@ for recon_alg in recon_algorithms:
         rec = np.rot90(rec, k=2, axes=(1, 2))
         if savepatchesFLAG == 1:
            fxn_extract_and_save_vois(rec, recon_alg, folder_suffix, scanID, loc_save_patches, loc_save_MIPjpgs, calc_diameter_mm, cluster_diameter_mm, num_calcs, density, num_SPvois_perbreast, voi_centers_mm_SP, voi_centers_mm_SA, recon_size_mm, voi_halfdim_vx, flagHU)
-           fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, home_dir, geo, ang)
+           fxn_write_metadata(loc_save_patches, loc_spectra, effective_energy_keV, loc_material_files, density, energy_bin_size_keV, csI_thickness_mm, vertical_offset_mm, new_vx_um, calc_shape, calc_diameter_mm, num_calcs, cluster_diameter_mm, clusterCenteredFLAG,num_SPvois_perbreast, num_SAvois_perbreast, voi_size_mm, voi_size_vx, recon_alg, folder_suffix, kernel, flagHU, mu_water, code_dir, geo, ang)
         elapsed_time = time.time() - start_time
         print(f"{recon_alg} reconstruction completed in {elapsed_time:.1f} seconds", flush=True)
 
