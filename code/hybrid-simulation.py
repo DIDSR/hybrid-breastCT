@@ -17,7 +17,7 @@ print(datetime.now(),flush=True)
 # Define paths and directories
 code_dir = '/path/to/code/dir/'                                       # for code and relevant files
 data_dir = '/path/to/data/dir/'                                       # larger storage containing patient data. hybrid images will output here
-voi_center_dir  = '/path/to/voi/center/dir'
+voi_center_dir  = '/path/to/voi/center/dir'                           # pre-generated viable VOI centers for each scan
 
 # Path for energy_spectra and material_files
 loc_spectra = os.path.join(code_dir, 'system_specific', 'energy_spectra', 'W60kVp_0.2mmGd.spc')
@@ -34,19 +34,19 @@ loc_save_MIPjpgs = os.path.join(data_dir, 'CalcPatches', 'MIPjpgs/')   # jpgs of
 loc_save_patches = os.path.join(data_dir, 'CalcPatches', 'Patches/')   # patches = final images displayed in MIP or VOI, in raw form
 
 # Desired voxel size of object (microns)
-new_vx_um            = 30
+new_vx_um            = 30                  # voxel size of ray-tracing object
 
 # Ray tracing projection parameters
-energy_bin_size_keV  = 1
-csI_thickness_mm     = 0.45
+energy_bin_size_keV  = 1                   # polyenergetic simulation occurs at every ___ keV intervals
+csI_thickness_mm     = 0.45                # thickness of CsI scintillator layer
 xsiz, ysiz           = 2048, 1536          # detector pixels in x direction, y direction
-dexel_mm             = 0.150
-vertical_offset_mm   = -30
+dexel_mm             = 0.150               # detector pixel size
+vertical_offset_mm   = -30                 # vertical offset in system geometry
 
 # VOI parameters
 num_SPvois_perbreast = 50                  # max # signal present VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
 num_SAvois_perbreast = 50                  # max # signal absent VOIs to extract per breast. depending on breast size and voi size, actual # may be smaller than this.
-voi_size_mm = 8
+voi_size_mm = 8                            # size of output VOI
 
 # Set material densities
 density = {
@@ -58,18 +58,18 @@ density = {
 
 # Calc cluster parameters
 calc_shape           = 'sphere'
-clusterCenteredFLAG  = 0                   # [0 or 1] Center cluster within VOI
+clusterCenteredFLAG  = 0                   # [0 or 1] 0: Cluster not centered within VOI   1: Cluster centered within VOI
 
 # Reconstruction parameters
-kernels              = ['hann','shepp_logan', 'cosine', 'ram_lak']
-recon_algorithms     = ['FDK']             #['FDK', 'SART', 'CGLS', 'MLEM']
+kernels              = ['hann','shepp_logan', 'cosine', 'ram_lak']  # Refer to TIGRE documentation
+recon_algorithms     = ['FDK']             #['FDK', 'SART', 'CGLS', 'MLEM'], refer to TIGRE documentation
 iterations           = 30                  # called if using iterative recon algorithm
 flagHU               = 0  # [0:mu  1:HU]   # output CT voxel values in mu or HU form
-effective_energy_keV = 36.2                # of current x-ray spectrum.
+effective_energy_keV = 36.2                # effective energy of current x-ray spectrum
 mu_water             = 0.298               # mu of water at effective energy of 36.2keV, used for conversion from mu to HU
 
 # Flag for saving outputs into data_dir
-savepatchesFLAG      = 1
+savepatchesFLAG      = 1                
 
 ####################################################################################################################
 
