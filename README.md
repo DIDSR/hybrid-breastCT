@@ -43,7 +43,7 @@ Instructions for setup, installation, and customizing code can be found in ```co
 ## Citation
 
 "_Hybrid simulation of breast CT for assessing microcalcification detectability_". Lyu SH, Makeev A, Li D, Badal A, Hernandez AM, Boone JM, Glick SJ.
-Journal of Medical Imaging, 2025.
+Journal of Medical Imaging, 2025. https://doi.org/10.1117/1.JMI.12.S2.S22015
 
 ## More information
 
