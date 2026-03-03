@@ -13,7 +13,7 @@ source bct_env/bin/activate
 ```
 pip install -r requirements.txt
 ```
-4. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python (requires CUDA) 
+4. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python (requires CUDA 11.8) 
 5. Customize ```hybrid-simulation.py```, ```utils.py```, and directory `/system-specific` for your breast CT system. More info below:
 
 ## Requirements For Implementation With Other Breast CT Systems
