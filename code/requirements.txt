@@ -1,7 +1,5 @@
-python==3.11.0
 numpy
 pandas
 matplotlib
 scipy
 openpyxl
-tigre==2.4.0
