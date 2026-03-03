@@ -6,8 +6,8 @@ git clone https://github.com/DIDSR/hybrid-breastCT.git
 
 2. Activate a new virtual environment:
 ```
-python3.11 -m venv bct_env [OLD: conda create --name bct_env python=3.11]
-source bct_env/bin/activate [OLD: conda activate bct_env]
+python3.11 -m venv bct_env 
+source bct_env/bin/activate 
 ```
 3. Install required Python packages using pip: 
 ```
