@@ -6,10 +6,10 @@ git clone https://github.com/DIDSR/hybrid-breastCT.git
 
 2. Activate a new Conda environment:
 ```
-conda create --name bct_env python=3.11
-conda activate bct_env
+python3.11 -m venv bct_env [OLD: conda create --name bct_env python=3.11]
+source activate [OLD: conda activate bct_env]
 ```
-3. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python
+3. Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python (requires CUDA)
 4. Install required Python packages using pip: 
 ```
 pip install -r requirements.txt
