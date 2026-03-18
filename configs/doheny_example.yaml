@@ -1,1 +1,11 @@
+system: doheny
 
+paths:
+  data_dir: /path/to/data
+  output_dir: /path/to/output
+  voi_center_dir: /path/to/voi_centers
+
+files:
+  spectrum: examples/doheny/energy_spectra/W60kVp_0.2mmGd.spc
+  detector_mtf: examples/doheny/detector_mtf.csv
+  scanlog: examples/doheny/scanlog_template.xlsx
