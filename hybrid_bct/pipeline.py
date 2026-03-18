@@ -13,6 +13,11 @@ from hybrid_bct.io.spectra import read_energy_spectrum
 from hybrid_bct.io.materials import read_material_file
 from hybrid_bct.metadata import write_metadata
 
+def _resolve_cfg_path(cfg: dict, path_str: str) -> Path:
+    p = Path(path_str).expanduser()
+    if not p.is_absolute():
+        p = Path(cfg["_repo_root"]) / p
+    return p.resolve()
 
 def run_hybrid_simulation(
     cfg: dict,
