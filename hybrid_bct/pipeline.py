@@ -14,6 +14,7 @@ from hybrid_bct.io.materials import read_material_file
 from hybrid_bct.metadata import write_metadata
 from hybrid_bct.simulation.calc_models import fxn_generate_calc
 from hybrid_bct.simulation.insertion import fxn_insert_calc_cluster_new
+from hybrid_bct.simulation.voi import fxn_getVOIcenters
 
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
@@ -104,6 +105,25 @@ def run_hybrid_simulation(
     )
 
     print(f"Generated calc shape: {calc.shape}")
+    voi_size_mm = cfg["voi"]["voi_size_mm"]
+    "num_SPvois_perbreast": num_SPvois_perbreast,
+    "num_SAvois_perbreast": num_SAvois_perbreast,
+
+    (
+        voi_centers_mm_SP,
+        voi_centers_mm_SA,
+        num_SPvois_perbreast,
+        num_SAvois_perbreast,
+    ) = fxn_getVOIcenters(
+        scanID=scan_id,
+        voi_size_mm=voi_size_mm,
+        num_SPvois_perbreast=num_SPvois_perbreast,
+        num_SAvois_perbreast=num_SAvois_perbreast,
+        input_folder=voi_center_dir,
+    )
+
+    print(f"Signal-present VOI centers loaded: {len(voi_centers_mm_SP)}")
+    print(f"Signal-absent VOI centers loaded: {len(voi_centers_mm_SA)}")
 
     # load projections and geometry
     prjstack, geo, ang = load_projections_and_geometry_doheny(
