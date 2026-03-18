@@ -1,1 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
+[project]
+name = "hybrid-bct"
+version = "0.1.0"
+description = "Hybrid breast CT virtual imaging trial framework"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pandas",
+  "matplotlib",
+  "scipy",
+  "pyyaml",
+]
+
+[tool.setuptools]
+packages = ["hybrid_bct"]
