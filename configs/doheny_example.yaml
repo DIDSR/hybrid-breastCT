@@ -1,7 +1,7 @@
 system: doheny
 
 paths:
-  data_dir: /path/to/data
+  patient_data_dir: /path/to/patient_data
   output_dir: /path/to/output
   voi_center_dir: /path/to/voi_centers
 
