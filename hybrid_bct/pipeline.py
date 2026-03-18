@@ -76,15 +76,15 @@ def run_hybrid_simulation(
     )
 
     # load spectrum
-    spectrum_path = files_cfg["spectrum"]
+    spectrum_path = _resolve_cfg_path(cfg, files_cfg["spectrum"])
     energy_keV, fluence = read_energy_spectrum(spectrum_path)
 
     # load material files
     material_files = files_cfg.get("material_files", {})
-    calc_energy, calc_mu = read_material_file(material_files["calc"])
-    adipose_energy, adipose_mu = read_material_file(material_files["adipose"])
-    gland_energy, gland_mu = read_material_file(material_files["glandular"])
-    csi_energy, csi_mu = read_material_file(material_files["csI"])
+    calc_energy, calc_mu = read_material_file(_resolve_cfg_path(cfg, material_files["calc"]))
+    adipose_energy, adipose_mu = read_material_file(_resolve_cfg_path(cfg, material_files["adipose"]))
+    gland_energy, gland_mu = read_material_file(_resolve_cfg_path(cfg, material_files["glandular"]))
+    csi_energy, csi_mu = read_material_file(_resolve_cfg_path(cfg, material_files["csI"]))
 
     print("Configuration validated.")
     print(f"Loaded scanlog row index: {iscan}")
