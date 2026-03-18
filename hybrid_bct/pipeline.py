@@ -13,6 +13,7 @@ from hybrid_bct.io.spectra import read_energy_spectrum
 from hybrid_bct.io.materials import read_material_file
 from hybrid_bct.metadata import write_metadata
 from hybrid_bct.simulation.calc_models import fxn_generate_calc
+from hybrid_bct.simulation.insertion import fxn_insert_calc_cluster_new
 
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
