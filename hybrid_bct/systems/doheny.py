@@ -30,27 +30,40 @@ class DohenySystem(BaseSystem):
         super().__init__(cfg)
 
     def validate(self) -> None:
-        files = self.cfg.get("files", {})
-        paths = self.cfg.get("paths", {})
+    files = self.cfg.get("files", {})
+    paths = self.cfg.get("paths", {})
 
-        required_files = ["spectrum", "detector_mtf", "scanlog"]
-        for key in required_files:
-            if key not in files:
-                raise ValueError(f"Missing files.{key} in config")
+    required_files = ["spectrum", "detector_mtf", "scanlog"]
+    for key in required_files:
+        if key not in files:
+            raise ValueError(f"Missing files.{key} in config")
 
-        required_paths = ["patient_data_dir", "output_dir", "voi_center_dir"]
-        for key in required_paths:
-            if key not in paths:
-                raise ValueError(f"Missing paths.{key} in config")
+    required_paths = ["patient_data_dir", "output_dir", "voi_center_dir"]
+    for key in required_paths:
+        if key not in paths:
+            raise ValueError(f"Missing paths.{key} in config")
 
-        repo_root = Path(self.cfg["_repo_root"])
+    repo_root = Path(self.cfg["_repo_root"])
 
-        for key in required_files:
-            p = Path(files[key])
-            if not p.is_absolute():
-                p = repo_root / p
-            if not p.exists():
-                raise FileNotFoundError(f"Missing {key}: {p}")
+    for key in required_files:
+        p = Path(files[key])
+        if not p.is_absolute():
+            p = repo_root / p
+        if not p.exists():
+            raise FileNotFoundError(f"Missing {key}: {p}")
+
+    material_files = files.get("material_files", {})
+    required_materials = ["calc", "adipose", "glandular", "csI"]
+
+    for key in required_materials:
+        if key not in material_files:
+            raise ValueError(f"Missing files.material_files.{key} in config")
+
+        p = Path(material_files[key])
+        if not p.is_absolute():
+            p = repo_root / p
+        if not p.exists():
+            raise FileNotFoundError(f"Missing material file {key}: {p}")
 
     def summary(self) -> dict:
         repo_root = self.cfg.get("_repo_root", Path.cwd())
