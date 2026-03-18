@@ -132,8 +132,12 @@ def run_hybrid_simulation(
     kernel = recon_cfg["kernels"][0]
     folder_suffix = f"scan{scan_id:04d}"
 
+    output_cfg = cfg.get("output", {})
+    patch_subdir = output_cfg.get("patch_subdir", "CalcPatches/Patches")
+    patch_root = Path(output_dir) / patch_subdir
+
     write_metadata(
-        output_patch_root=Path(output_dir) / "CalcPatches" / "Patches",
+        output_patch_root=patch_root,
         cfg=cfg,
         run_params=run_params,
         density=density,
