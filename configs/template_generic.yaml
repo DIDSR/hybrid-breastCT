@@ -1,1 +1,55 @@
+system: custom
 
+paths:
+  patient_data_dir: /path/to/patient_data
+  output_dir: /path/to/output
+  voi_center_dir: /path/to/voi_centers
+
+files:
+  spectrum: /path/to/spectrum.spc
+  detector_mtf: /path/to/detector_mtf.csv
+  scanlog: /path/to/scanlog.xlsx
+  material_files:
+    calc: /path/to/calc_material.mcgpu
+    adipose: /path/to/adipose_material.mcgpu
+    glandular: /path/to/glandular_material.mcgpu
+    csI: /path/to/csi_material.txt
+
+simulation:
+  new_vx_um: 30
+  energy_bin_size_keV: 1
+  csI_thickness_mm: 0.45
+  calc_shape: sphere
+  clusterCenteredFLAG: 0
+
+  detector:
+    xsiz: 2048
+    ysiz: 1536
+    dexel_mm: 0.150
+    vertical_offset_mm: 0
+
+voi:
+  num_SPvois_perbreast: 50
+  num_SAvois_perbreast: 50
+  voi_size_mm: 8
+
+reconstruction:
+  algorithms:
+    - FDK
+  kernels:
+    - hann
+  iterations: 30
+  flagHU: 0
+  effective_energy_keV: 36.2
+  mu_water: 0.298
+
+density:
+  calc: 1.78
+  adipose: 0.920
+  glandular: 1.035
+  csI: 4.510
+
+output:
+  savepatchesFLAG: 1
+  mip_subdir: CalcPatches/MIPjpgs
+  patch_subdir: CalcPatches/Patches
