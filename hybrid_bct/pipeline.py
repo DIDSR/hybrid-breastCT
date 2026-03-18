@@ -12,6 +12,7 @@ from hybrid_bct.systems.doheny import (
 from hybrid_bct.io.spectra import read_energy_spectrum
 from hybrid_bct.io.materials import read_material_file
 from hybrid_bct.metadata import write_metadata
+from hybrid_bct.simulation.calc_models import fxn_generate_calc
 
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
@@ -90,6 +91,18 @@ def run_hybrid_simulation(
 
     print(f"Cropped segmentation shape: {seg_volume_cropped.shape}")
     print(f"Upsampled segmentation shape: {seg_volume_HR.shape}")
+
+    calc_shape = sim_cfg.get("calc_shape", "sphere")
+    voxel_size_mm = 0.001 * new_vx_um
+    
+    calc = fxn_generate_calc(
+        voxel_size_mm=voxel_size_mm,
+        default_size_calc_mm=calc_diameter_mm,
+        shape=calc_shape,
+        saveFLAG=0,
+    )
+
+    print(f"Generated calc shape: {calc.shape}")
 
     # load projections and geometry
     prjstack, geo, ang = load_projections_and_geometry_doheny(
