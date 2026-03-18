@@ -13,6 +13,11 @@ from hybrid_bct.io.spectra import read_energy_spectrum
 from hybrid_bct.io.materials import read_material_file
 from hybrid_bct.metadata import write_metadata
 
+from hybrid_bct.simulation.volume import (
+    fxn_crop_volume,
+    fxn_upsample_volume_in_sections,
+)
+
 def _resolve_cfg_path(cfg: dict, path_str: str) -> Path:
     p = Path(path_str).expanduser()
     if not p.is_absolute():
@@ -64,6 +69,27 @@ def run_hybrid_simulation(
         scan_id=scan_id,
         patient_data_dir=patient_data_dir,
     )
+
+    VcropLocs_scan = VcropLocs[iscan:iscan+1, :]
+    FLAGchestwall = 0
+    
+    seg_volume_cropped, shift_mm_3D = fxn_crop_volume(
+        iscan=0,
+        volume=seg_volume,
+        original_vx_um=original_vx_um,
+        Nxyz=Nxyz,
+        VcropLocs=VcropLocs_scan,
+        FLAGchestwall=FLAGchestwall,
+    )
+    
+    seg_volume_HR = fxn_upsample_volume_in_sections(
+        seg_volume=seg_volume_cropped,
+        original_vx_um=original_vx_um,
+        new_vx_um=new_vx_um,
+    )
+
+    print(f"Cropped segmentation shape: {seg_volume_cropped.shape}")
+    print(f"Upsampled segmentation shape: {seg_volume_HR.shape}")
 
     # load projections and geometry
     prjstack, geo, ang = load_projections_and_geometry_doheny(
