@@ -9,3 +9,50 @@ files:
   spectrum: examples/doheny/energy_spectra/W60kVp_0.2mmGd.spc
   detector_mtf: examples/doheny/detector_mtf.csv
   scanlog: examples/doheny/scanlog_template.xlsx
+  material_files:
+    calc: examples/doheny/material_files/CalciumOxalate__5-120keV.mcgpu
+    adipose: examples/doheny/material_files/adipose__5-120keV.mcgpu
+    glandular: examples/doheny/material_files/glandular__5-120keV.mcgpu
+    csI: examples/doheny/material_files/CesiumIodide__5-120keV.txt
+
+simulation:
+  new_vx_um: 30
+  energy_bin_size_keV: 1
+  csI_thickness_mm: 0.45
+  calc_shape: sphere
+  clusterCenteredFLAG: 0
+
+  detector:
+    xsiz: 2048
+    ysiz: 1536
+    dexel_mm: 0.150
+    vertical_offset_mm: -30
+
+voi:
+  num_SPvois_perbreast: 50
+  num_SAvois_perbreast: 50
+  voi_size_mm: 8
+
+reconstruction:
+  algorithms:
+    - FDK
+  kernels:
+    - hann
+    - shepp_logan
+    - cosine
+    - ram_lak
+  iterations: 30
+  flagHU: 0
+  effective_energy_keV: 36.2
+  mu_water: 0.298
+
+density:
+  calc: 1.7808
+  adipose: 0.920
+  glandular: 1.035
+  csI: 4.510
+
+output:
+  savepatchesFLAG: 1
+  mip_subdir: CalcPatches/MIPjpgs
+  patch_subdir: CalcPatches/Patches
