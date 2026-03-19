@@ -29,3 +29,65 @@ def fxn_alter_geometry(geo, volume_with_calcs, CORoffset_mm_3D, new_vx_um, verti
     print(f"Offset of Detector (mm): [{geo_raytracing.offDetector[0]:.2f}, {geo_raytracing.offDetector[1]:.2f}]",flush=True)
 
     return geo_raytracing
+
+def reconstruct_hybrid_volume(
+    hybrid_prjstack,
+    geo,
+    ang,
+    recon_alg,
+    kernel,
+    iterations=30,
+):
+    """
+    Reconstruct a hybrid CT volume using TIGRE.
+
+    Supported algorithms:
+    - FDK
+    - SART
+    - CGLS
+    - MLEM
+    """
+    recon_alg = recon_alg.upper()
+
+    print(f"\nReconstructing hybrid volume using {recon_alg}...", flush=True)
+
+    if recon_alg == "FDK":
+        hybrid_ct_volume = tigre.algorithms.fdk(
+            hybrid_prjstack,
+            geo,
+            ang,
+            filter=kernel,
+        )
+
+    elif recon_alg == "SART":
+        hybrid_ct_volume = tigre.algorithms.sart(
+            hybrid_prjstack,
+            geo,
+            ang,
+            iterations=iterations,
+        )
+
+    elif recon_alg == "CGLS":
+        hybrid_ct_volume = tigre.algorithms.cgls(
+            hybrid_prjstack,
+            geo,
+            ang,
+            iterations=iterations,
+        )
+
+    elif recon_alg == "MLEM":
+        hybrid_ct_volume = tigre.algorithms.mlem(
+            hybrid_prjstack,
+            geo,
+            ang,
+            iterations=iterations,
+        )
+
+    else:
+        raise ValueError(
+            f"Unsupported reconstruction algorithm: {recon_alg}. "
+            "Supported: FDK, SART, CGLS, MLEM"
+        )
+
+    print(f"Hybrid CT volume shape: {hybrid_ct_volume.shape}", flush=True)
+    return hybrid_ct_volume
