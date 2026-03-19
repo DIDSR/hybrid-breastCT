@@ -43,7 +43,7 @@ The hybrid simulation framework performs the following steps:
 
 ---
 
-# Quick Start
+## Quick Start
 
 ### 1. Clone repository
 ```bash
@@ -108,17 +108,7 @@ python -m hybrid_bct.cli run \
   --calc-diameter-mm 1.0
 ```
 
-### Output
-Results are saved under
-```
-<output_dir>/
-  CalcPatches/
-    Patches/
-      *_VOI/
-      *_MIP/
-    MIPjpgs/
-```
-Outputs include:
+Outputs from the pipeline include:
 - VOI `.npy` volumes
 - MIP `.npy` arrays
 - MIP `.jpg` images
@@ -128,7 +118,7 @@ Outputs include:
 
 This simulation framework is designed to be adaptable across different breast CT platforms. While the original implementation uses data from the [Doheny Breast CT system](https://pmc.ncbi.nlm.nih.gov/articles/PMC4376760/), users can integrate their own patient datasets. The following data/information is required for implementation with your system:
 
-To run the pipeline your own system, you must supply:
+To run the pipeline with your own system, you must supply:
 
 #### REQUIREMENTS 
 - Patient breast CT projection images 
@@ -160,7 +150,7 @@ These functions are responsible for:
 - defining TIGRE geometry (`geo`)
 - defining projection angles (`ang`)
 
-This is the  where system-specific data formats and geometry are handled.
+This is the where system-specific data formats and geometry are handled.
 
 #### 2. Configuration file
 
@@ -208,7 +198,7 @@ Defined using TIGRE: refer to https://github.com/CERN/TIGRE/blob/master/Python/d
 ### Notes on resolution and performance
 - The segmentation volume is **upsampled** before simulation
 - Cropping is recommended to reduce memory usage
-- GPU accerlation (TIGRE) is required for projection simulation
+- GPU acceleration (TIGRE) is required for projection simulation
 
 ### Optional customization
 Advanced users may modify:
