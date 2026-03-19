@@ -131,8 +131,6 @@ To run the pipeline with your own system, you must supply:
 - CT reconstruction algorithm
 - Attenuation coefficient files for additional materials
 
----
-
 To adapt this framework to a new breast CT system, users must modify **two components**:
 
 #### 1. System-specific loading code
