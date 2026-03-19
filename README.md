@@ -1,6 +1,6 @@
 # hybrid-breastCT
 
-This repository contains a Python-based framework for generating **hybrid breast CT images** by combining simulated microcalcification clusters with real patient breast CT projection data.
+This repository contains a Python-based framework for generating hybrid breast CT images by combining simulated microcalcification clusters with real patient breast CT projection data.
 
 ![image](https://github.com/user-attachments/assets/539ca4a7-c2c6-46b8-8069-080405025048)
 
