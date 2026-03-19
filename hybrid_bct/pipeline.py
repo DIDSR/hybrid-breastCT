@@ -1,4 +1,3 @@
-print(">>> ENTERED run_hybrid_simulation", flush=True)
 from __future__ import annotations
 
 from pathlib import Path
@@ -27,6 +26,8 @@ from hybrid_bct.simulation.projection import (
     generate_hybrid_projection_stack,
 )
 from hybrid_bct.reconstruction import reconstruct_hybrid_volume
+
+print(">>> ENTERED run_hybrid_simulation", flush=True)
 
 def _resolve_cfg_path(cfg: dict, path_str: str) -> Path:
     p = Path(path_str).expanduser()
