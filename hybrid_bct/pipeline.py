@@ -280,6 +280,7 @@ def run_hybrid_simulation(
     recon_alg = recon_cfg["algorithms"][0]
     kernel = recon_cfg["kernels"][0]
     iterations = recon_cfg.get("iterations", 30)
+    folder_suffix = f"scan{scan_id:04d}"
 
     hybrid_ct_volume = reconstruct_hybrid_volume(
         hybrid_prjstack=hybrid_prjstack,
@@ -349,9 +350,6 @@ def run_hybrid_simulation(
         "mu_water": recon_cfg["mu_water"],
     }
 
-    folder_suffix = f"scan{scan_id:04d}"
-
-    output_cfg = cfg.get("output", {})
     patch_subdir = output_cfg.get("patch_subdir", "CalcPatches/Patches")
     patch_root = Path(output_dir) / patch_subdir
 
