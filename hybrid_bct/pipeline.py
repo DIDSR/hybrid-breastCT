@@ -11,12 +11,11 @@ from hybrid_bct.systems.doheny import (
     load_projections_and_geometry_doheny,
 )
 from hybrid_bct.io.spectra import read_energy_spectrum
-from hybrid_bct.io.materials import read_material_file
+from hybrid_bct.io.materials import read_material_file, interpolate_material_attenuation
 from hybrid_bct.metadata import write_metadata
 from hybrid_bct.simulation.calc_models import fxn_generate_calc
 from hybrid_bct.simulation.insertion import fxn_insert_calc_cluster_new
 from hybrid_bct.simulation.voi import fxn_getVOIcenters
-from hybrid_bct.simulation.blur import mtf_blur
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
     fxn_upsample_volume_in_sections,
@@ -112,6 +111,8 @@ def run_hybrid_simulation(
 
     print(f"Generated calc shape: {calc.shape}")
     voi_size_mm = cfg["voi"]["voi_size_mm"]
+    num_SPvois_perbreast = cfg["voi"]["num_SPvois_perbreast"]
+    num_SAvois_perbreast = cfg["voi"]["num_SAvois_perbreast"]
 
     (
         voi_centers_mm_SP,
@@ -187,12 +188,51 @@ def run_hybrid_simulation(
     spectrum_path = _resolve_cfg_path(cfg, files_cfg["spectrum"])
     energy_keV, fluence = read_energy_spectrum(spectrum_path)
 
-    # load material files
     material_files = files_cfg.get("material_files", {})
-    calc_energy, calc_mu = read_material_file(_resolve_cfg_path(cfg, material_files["calc"]))
-    adipose_energy, adipose_mu = read_material_file(_resolve_cfg_path(cfg, material_files["adipose"]))
-    gland_energy, gland_mu = read_material_file(_resolve_cfg_path(cfg, material_files["glandular"]))
-    csi_energy, csi_mu = read_material_file(_resolve_cfg_path(cfg, material_files["csI"]))
+
+    calc_energy_keV, calc_mu_raw = read_material_file(
+        _resolve_cfg_path(cfg, material_files["calc"])
+    )
+    adipose_energy_keV, adipose_mu_raw = read_material_file(
+        _resolve_cfg_path(cfg, material_files["adipose"])
+    )
+    gland_energy_keV, gland_mu_raw = read_material_file(
+        _resolve_cfg_path(cfg, material_files["glandular"])
+    )
+    csi_energy_keV, csi_mu_raw = read_material_file(
+        _resolve_cfg_path(cfg, material_files["csI"])
+    )
+
+    mu_cm = {
+        "calc": interpolate_material_attenuation(
+            calc_energy_keV,
+            calc_mu_raw,
+            energy_keV,
+            density=density["calc"],
+        ),
+        "adipose": interpolate_material_attenuation(
+            adipose_energy_keV,
+            adipose_mu_raw,
+            energy_keV,
+            density=density["adipose"],
+        ),
+        "glandular": interpolate_material_attenuation(
+            gland_energy_keV,
+            gland_mu_raw,
+            energy_keV,
+            density=density["glandular"],
+        ),
+        "csI": interpolate_material_attenuation(
+            csi_energy_keV,
+            csi_mu_raw,
+            energy_keV,
+            density=density["csI"],
+        ),
+    }
+
+    energy_levels_eV = energy_keV * 1000.0
+    photon_fluence = fluence
+    QDE_CsI = 1.0 - np.exp(-0.1 * mu_cm["csI"] * csI_thickness_mm)
 
     detector_mtf_path = _resolve_cfg_path(cfg, files_cfg["detector_mtf"])
     mtf_data = np.loadtxt(detector_mtf_path, delimiter=",")
@@ -200,18 +240,41 @@ def run_hybrid_simulation(
     mtf_MTF = mtf_data[:, 1]
 
     print(f"Loaded detector MTF points: {len(f_MTF)}")
+    
+    cluster_info = build_cluster_candidate_offsets(
+        cluster_diameter_mm=cluster_diameter_mm,
+        calc=calc,
+        voi_size_mm=voi_size_mm,
+        new_vx_um=new_vx_um,
+    )
 
-    # Temporary placeholder for calc-only projection stack until ray tracing is wired in
-    prjstack_calcs = np.zeros_like(prjstack, dtype=np.float32)
+    CORoffset_mm_3D, zstart_mm = compute_cor_offset_mm(
+        iscan=0,
+        VcropLocs=VcropLocs_scan,
+        Nxyz=Nxyz,
+        original_vx_um=original_vx_um,
+        FLAGchestwall=FLAGchestwall,
+    )
 
-    prjstack_calcs_blurred = mtf_blur(
-        prjstack_calcs=prjstack_calcs,
+    hybrid_prjstack = generate_hybrid_projection_stack(
+        volume_with_calcs=volume_with_calcs,
+        geo=geo,
+        ang=ang,
+        photon_fluence=photon_fluence,
+        QDE_CsI=QDE_CsI,
+        energy_levels_eV=energy_levels_eV,
+        mu_cm=mu_cm,
         dexel_mm=dexel_mm,
         f_MTF=f_MTF,
         mtf_MTF=mtf_MTF,
+        prjstack=prjstack,
+        new_vx_um=new_vx_um,
+        vertical_offset_mm=vertical_offset_mm,
+        zstart_mm=zstart_mm,
+        CORoffset_mm_3D=CORoffset_mm_3D,
     )
 
-    print(f"Blurred calc projection stack shape: {prjstack_calcs_blurred.shape}")
+    print(f"Hybrid projection stack shape: {hybrid_prjstack.shape}")
 
     print("Configuration validated.")
     print(f"Loaded scanlog row index: {iscan}")
