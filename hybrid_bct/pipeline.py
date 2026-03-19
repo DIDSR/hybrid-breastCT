@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import numpy as np
 
 from hybrid_bct.systems.doheny import (
     DohenySystem,
@@ -15,6 +16,7 @@ from hybrid_bct.metadata import write_metadata
 from hybrid_bct.simulation.calc_models import fxn_generate_calc
 from hybrid_bct.simulation.insertion import fxn_insert_calc_cluster_new
 from hybrid_bct.simulation.voi import fxn_getVOIcenters
+from hybrid_bct.simulation.blur import mtf_blur
 
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
@@ -106,8 +108,6 @@ def run_hybrid_simulation(
 
     print(f"Generated calc shape: {calc.shape}")
     voi_size_mm = cfg["voi"]["voi_size_mm"]
-    "num_SPvois_perbreast": num_SPvois_perbreast,
-    "num_SAvois_perbreast": num_SAvois_perbreast,
 
     (
         voi_centers_mm_SP,
@@ -124,6 +124,50 @@ def run_hybrid_simulation(
 
     print(f"Signal-present VOI centers loaded: {len(voi_centers_mm_SP)}")
     print(f"Signal-absent VOI centers loaded: {len(voi_centers_mm_SA)}")
+
+    # Use the first signal-present VOI center for now
+    voi_center_mm = voi_centers_mm_SP[0]
+
+    # Convert VOI center from mm to voxel coordinates in the upsampled cropped volume
+    voi_center_vx = np.round(voi_center_mm / voxel_size_mm).astype(int)
+
+    print(f"Selected signal-present VOI center (mm): {voi_center_mm}")
+    print(f"Selected signal-present VOI center (voxels): {voi_center_vx}")
+
+    # Prepare calc-cluster insertion inputs
+    volume_with_calcs = np.zeros_like(seg_volume_HR, dtype=np.uint8)
+
+    cluster_center = voi_center_vx.astype(int)
+    half_dim = calc.shape[0] // 2
+
+    logical_sphere_center = np.array(
+        [cluster_center[0], cluster_center[1], cluster_center[2]],
+        dtype=int,
+    )
+
+    # For now, use all nonzero voxels in the calc as candidate offsets
+    true_z, true_y, true_x = np.where(calc > 0)
+
+    print(f"Cluster center (voxels): {cluster_center}")
+    print(f"Calc half dimension: {half_dim}")
+    print(f"Number of candidate calc voxels: {len(true_x)}")
+
+    volume_with_calcs = fxn_insert_calc_cluster_new(
+        volume_with_calcs=volume_with_calcs,
+        seg_volume_HR=seg_volume_HR,
+        true_x=true_x,
+        true_y=true_y,
+        true_z=true_z,
+        logical_sphere_center=logical_sphere_center,
+        cluster_center=cluster_center,
+        num_calcs=num_calcs,
+        calc=calc,
+        half_dim=half_dim,
+        labels=labels,
+    )
+
+    print(f"Inserted calc volume nonzero voxels: {np.count_nonzero(volume_with_calcs)}")
+    print(f"Inserted calc unique values: {np.unique(volume_with_calcs)}")
 
     # load projections and geometry
     prjstack, geo, ang = load_projections_and_geometry_doheny(
@@ -146,6 +190,25 @@ def run_hybrid_simulation(
     gland_energy, gland_mu = read_material_file(_resolve_cfg_path(cfg, material_files["glandular"]))
     csi_energy, csi_mu = read_material_file(_resolve_cfg_path(cfg, material_files["csI"]))
 
+    detector_mtf_path = _resolve_cfg_path(cfg, files_cfg["detector_mtf"])
+    mtf_data = np.loadtxt(detector_mtf_path, delimiter=",")
+    f_MTF = mtf_data[:, 0]
+    mtf_MTF = mtf_data[:, 1]
+
+    print(f"Loaded detector MTF points: {len(f_MTF)}")
+
+    # Temporary placeholder for calc-only projection stack until ray tracing is wired in
+    prjstack_calcs = np.zeros_like(prjstack, dtype=np.float32)
+
+    prjstack_calcs_blurred = mtf_blur(
+        prjstack_calcs=prjstack_calcs,
+        dexel_mm=dexel_mm,
+        f_MTF=f_MTF,
+        mtf_MTF=mtf_MTF,
+    )
+
+    print(f"Blurred calc projection stack shape: {prjstack_calcs_blurred.shape}")
+
     print("Configuration validated.")
     print(f"Loaded scanlog row index: {iscan}")
     print(f"Segmentation shape: {seg_volume.shape}")
@@ -153,19 +216,6 @@ def run_hybrid_simulation(
     print(f"Spectrum bins: {len(energy_keV)}")
     print(f"Output directory: {output_dir}")
     print(f"VOI center directory: {voi_center_dir}")
-
-    # ---------------------------------------------------------
-    # TODO: add actual hybrid simulation workflow here
-    # - crop volume
-    # - upsample segmentation
-    # - generate calc cluster
-    # - insert calc cluster
-    # - ray trace
-    # - blur projections
-    # - combine with patient projections
-    # - reconstruct
-    # - extract VOIs / MIPs
-    # ---------------------------------------------------------
 
     # Temporary metadata write for pipeline scaffolding
     run_params = {
@@ -180,8 +230,8 @@ def run_hybrid_simulation(
         "num_calcs": num_calcs,
         "cluster_diameter_mm": cluster_diameter_mm,
         "clusterCenteredFLAG": sim_cfg.get("clusterCenteredFLAG", 0),
-        "num_SPvois_perbreast": cfg["voi"]["num_SPvois_perbreast"],
-        "num_SAvois_perbreast": cfg["voi"]["num_SAvois_perbreast"],
+        "num_SPvois_perbreast": num_SPvois_perbreast,
+        "num_SAvois_perbreast": num_SAvois_perbreast,
         "voi_size_mm": cfg["voi"]["voi_size_mm"],
         "voi_size_vx": "TBD",
         "flagHU": recon_cfg["flagHU"],
