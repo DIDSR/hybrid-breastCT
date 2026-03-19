@@ -62,9 +62,7 @@ pip install -r requirements.txt
 
 ### 4. Configuration
 
-All system-specific inputs and paths are defined in:
-
-`configs/doheny_example.yaml`
+All system-specific inputs and paths are defined in: `configs/doheny_example.yaml`
 
 #### Required paths
 ```yaml
