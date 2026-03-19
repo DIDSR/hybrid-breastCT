@@ -15,7 +15,7 @@ from hybrid_bct.io.materials import read_material_file, interpolate_material_att
 from hybrid_bct.metadata import write_metadata
 from hybrid_bct.simulation.calc_models import fxn_generate_calc
 from hybrid_bct.simulation.insertion import fxn_insert_calc_cluster_new
-from hybrid_bct.simulation.voi import fxn_getVOIcenters
+from hybrid_bct.simulation.voi import fxn_getVOIcenters, fxn_extract_and_save_vois
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
     fxn_upsample_volume_in_sections,
@@ -290,6 +290,36 @@ def run_hybrid_simulation(
         iterations=iterations,
     )
 
+    output_cfg = cfg.get("output", {})
+    mip_subdir = output_cfg.get("mip_subdir", "CalcPatches/MIPjpgs")
+    patch_subdir = output_cfg.get("patch_subdir", "CalcPatches/Patches")
+
+    loc_save_MIPjpgs = Path(output_dir) / mip_subdir
+    loc_save_patches = Path(output_dir) / patch_subdir
+
+    recon_size_mm = geo.dVoxel[0]
+    voi_size_vx = round(voi_size_mm / recon_size_mm)
+    voi_halfdim_vx = voi_size_vx // 2
+
+    fxn_extract_and_save_vois(
+        rec=hybrid_ct_volume,
+        recon_alg=recon_alg,
+        folder_suffix=folder_suffix,
+        scanID=scan_id,
+        loc_save_patches=loc_save_patches,
+        loc_save_MIPjpgs=loc_save_MIPjpgs,
+        calc_diameter_mm=calc_diameter_mm,
+        cluster_diameter_mm=cluster_diameter_mm,
+        num_calcs=num_calcs,
+        density=density,
+        num_SPvois_perbreast=num_SPvois_perbreast,
+        voi_centers_mm_SP=voi_centers_mm_SP,
+        voi_centers_mm_SA=voi_centers_mm_SA,
+        recon_size_mm=recon_size_mm,
+        voi_halfdim_vx=voi_halfdim_vx,
+        flagHU=recon_cfg["flagHU"],
+    )
+
     print("Configuration validated.")
     print(f"Loaded scanlog row index: {iscan}")
     print(f"Segmentation shape: {seg_volume.shape}")
@@ -314,7 +344,7 @@ def run_hybrid_simulation(
         "num_SPvois_perbreast": num_SPvois_perbreast,
         "num_SAvois_perbreast": num_SAvois_perbreast,
         "voi_size_mm": cfg["voi"]["voi_size_mm"],
-        "voi_size_vx": "TBD",
+        "voi_size_vx": voi_size_vx,
         "flagHU": recon_cfg["flagHU"],
         "mu_water": recon_cfg["mu_water"],
     }
