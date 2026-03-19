@@ -61,3 +61,6 @@ def main() -> None:
         system.validate()
         print("Input validation passed.")
         print(system.summary())
+        
+if __name__ == "__main__":
+    main()
