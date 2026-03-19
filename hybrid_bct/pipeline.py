@@ -25,6 +25,7 @@ from hybrid_bct.simulation.projection import (
     compute_cor_offset_mm,
     generate_hybrid_projection_stack,
 )
+from hybrid_bct.reconstruction import reconstruct_hybrid_volume
 
 def _resolve_cfg_path(cfg: dict, path_str: str) -> Path:
     p = Path(path_str).expanduser()
@@ -276,6 +277,19 @@ def run_hybrid_simulation(
 
     print(f"Hybrid projection stack shape: {hybrid_prjstack.shape}")
 
+    recon_alg = recon_cfg["algorithms"][0]
+    kernel = recon_cfg["kernels"][0]
+    iterations = recon_cfg.get("iterations", 30)
+
+    hybrid_ct_volume = reconstruct_hybrid_volume(
+        hybrid_prjstack=hybrid_prjstack,
+        geo=geo,
+        ang=ang,
+        recon_alg=recon_alg,
+        kernel=kernel,
+        iterations=iterations,
+    )
+
     print("Configuration validated.")
     print(f"Loaded scanlog row index: {iscan}")
     print(f"Segmentation shape: {seg_volume.shape}")
@@ -305,8 +319,6 @@ def run_hybrid_simulation(
         "mu_water": recon_cfg["mu_water"],
     }
 
-    recon_alg = recon_cfg["algorithms"][0]
-    kernel = recon_cfg["kernels"][0]
     folder_suffix = f"scan{scan_id:04d}"
 
     output_cfg = cfg.get("output", {})
