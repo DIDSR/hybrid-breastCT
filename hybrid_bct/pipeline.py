@@ -27,8 +27,6 @@ from hybrid_bct.simulation.projection import (
 )
 from hybrid_bct.reconstruction import reconstruct_hybrid_volume
 
-print(">>> ENTERED run_hybrid_simulation", flush=True)
-
 def _resolve_cfg_path(cfg: dict, path_str: str) -> Path:
     p = Path(path_str).expanduser()
     if not p.is_absolute():
@@ -42,6 +40,7 @@ def run_hybrid_simulation(
     num_calcs: int,
     calc_diameter_mm: float,
 ) -> None:
+    print(">>> ENTERED run_hybrid_simulation", flush=True)
     system_name = cfg.get("system", "").lower()
 
     if system_name != "doheny":
