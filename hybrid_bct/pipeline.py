@@ -1,3 +1,4 @@
+print(">>> ENTERED run_hybrid_simulation", flush=True)
 from __future__ import annotations
 
 from pathlib import Path
