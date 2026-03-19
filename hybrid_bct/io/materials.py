@@ -82,3 +82,40 @@ def read_material_file(filepath: str | Path) -> tuple[np.ndarray, np.ndarray]:
         attenuation = attenuation[order]
 
     return energy_keV, attenuation
+
+def interpolate_material_attenuation(
+    material_energy_keV: np.ndarray,
+    material_attenuation: np.ndarray,
+    target_energy_keV: np.ndarray,
+    density: float | None = None,
+) -> np.ndarray:
+    """
+    Interpolate attenuation values onto a target energy grid.
+
+    Parameters
+    ----------
+    material_energy_keV : np.ndarray
+        Energy grid from the material file.
+    material_attenuation : np.ndarray
+        Attenuation values from the material file.
+    target_energy_keV : np.ndarray
+        Energy grid to interpolate onto.
+    density : float | None, optional
+        Optional density scaling factor. If provided, attenuation values are
+        multiplied by density after interpolation.
+
+    Returns
+    -------
+    np.ndarray
+        Interpolated attenuation values on target_energy_keV.
+    """
+    interp_vals = np.interp(
+        target_energy_keV,
+        material_energy_keV,
+        material_attenuation,
+    )
+
+    if density is not None:
+        interp_vals = interp_vals * density
+
+    return interp_vals
