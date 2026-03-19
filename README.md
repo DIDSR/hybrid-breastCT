@@ -45,26 +45,26 @@ The hybrid simulation framework performs the following steps:
 
 ## Quick Start
 
-### 1. Clone repository
+#### 1. Clone repository
 ```bash
 git clone https://github.com/DIDSR/hybrid-breastCT.git
 cd hybrid-breastCT
 ```
 
-### 2. Create environment
+#### 2. Create environment
 ```bash
 python -m venv bct_env
 source bct_env/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3.  Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python (requires GPU)
+#### 3.  Install [TIGRE](https://github.com/CERN/TIGRE/blob/master/Frontispiece/python_installation.md) for Python (requires GPU)
 
-### 4. Configuration
+#### 4. Configuration
 
 All system-specific inputs and paths are defined in: `configs/doheny_example.yaml`
 
-#### Required paths
+##### Required paths
 ```yaml
 paths:
   patient_data_dir: /path/to/patient_data_root
@@ -72,7 +72,7 @@ paths:
   voi_center_dir: /path/to/voi_centers
 ```
 
-#### Required files
+##### Required files
 ```yaml
 files:
   spectrum: ...
@@ -85,7 +85,7 @@ files:
     csI: ...
 ```
 
-### 5. Validate Inputs
+#### 5. Validate Inputs
 
 Check that all required files and paths are accessible:
 
@@ -93,7 +93,7 @@ Check that all required files and paths are accessible:
 python -m hybrid_bct.cli validate --config configs/doheny_example.yaml
 ```
 
-### 6. Run Simulation
+#### 6. Run Simulation
 
 Run the hybrid simulation pipeline:
 
@@ -112,7 +112,7 @@ Outputs from the pipeline include:
 - MIP `.jpg` images
 - Metadata files
 
-# Requirements For Implementation With Other Breast CT Systems
+## Requirements For Implementation With Other Breast CT Systems
 
 This simulation framework is designed to be adaptable across different breast CT platforms. While the original implementation uses data from the [Doheny Breast CT system](https://pmc.ncbi.nlm.nih.gov/articles/PMC4376760/), users can integrate their own patient datasets. The following data/information is required for implementation with your system:
 
