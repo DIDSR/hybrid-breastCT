@@ -17,10 +17,14 @@ from hybrid_bct.simulation.calc_models import fxn_generate_calc
 from hybrid_bct.simulation.insertion import fxn_insert_calc_cluster_new
 from hybrid_bct.simulation.voi import fxn_getVOIcenters
 from hybrid_bct.simulation.blur import mtf_blur
-
 from hybrid_bct.simulation.volume import (
     fxn_crop_volume,
     fxn_upsample_volume_in_sections,
+)
+from hybrid_bct.simulation.projection import (
+    build_cluster_candidate_offsets,
+    compute_cor_offset_mm,
+    generate_hybrid_projection_stack,
 )
 
 def _resolve_cfg_path(cfg: dict, path_str: str) -> Path:
