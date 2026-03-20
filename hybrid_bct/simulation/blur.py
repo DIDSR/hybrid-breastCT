@@ -1,4 +1,5 @@
 from scipy.interpolate import interp1d
+import numpy as np
 
 def mtf_blur(prjstack_calcs, dexel_mm, f_MTF, mtf_MTF):
     blurred_prjstack_calcs = np.zeros(prjstack_calcs.shape, dtype=prjstack_calcs.dtype)
