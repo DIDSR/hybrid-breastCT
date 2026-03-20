@@ -13,6 +13,8 @@ dependencies = [
   "pandas",
   "matplotlib",
   "scipy",
+  "openpyxl",
+  "cython",
   "pyyaml",
 ]
 
