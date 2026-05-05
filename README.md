@@ -210,15 +210,15 @@ Journal of Medical Imaging, 2025. https://doi.org/10.1117/1.JMI.12.S2.S22015
 ## Regulatory Science Tool Reference
 
 RST Reference Number: RST26MD04.01
+
 Date of Publication: 05/04/2026
+
 Recommended Citation: U.S. Food and Drug Administration. (2026). Hybrid Simulation Framework for Breast CT Virtual Imaging Trials (RST26MD04.01). https://cdrh-rst.fda.gov/hybrid-simulation-framework-breast-ct-virtual-imaging-trials
-
-[Catalog of Regulatory Science Tools to Help Assess New Medical Devices](https://www.fda.gov/medical-devices/science-and-research-medical-devices/catalog-regulatory-science-tools-help-assess-new-medical-devices)
-
 
 #### About the Catalog of Regulatory Science Tools
 
-The enclosed tool is part of the Catalog of Regulatory Science Tools, which provides a peer-reviewed resource for stakeholders to use where standards and qualified Medical Device Development Tools (MDDTs) do not yet exist. These tools do not replace FDA-recognized standards or MDDTs. This catalog collates a variety of regulatory science tools that the FDA's Center for Devices and Radiological Health's (CDRH) Office of Science and Engineering Labs (OSEL) developed. These tools use the most innovative science to support medical device development and patient access to safe and effective medical devices. If you are considering using a tool from this catalog in your marketing submissions, note that these tools have not been qualified as Medical Device Development Tools and the FDA has not evaluated the suitability of these tools within any specific context of use. You may request feedback or meetings for medical device submissions as part of the Q-Submission Program.
+The enclosed tool is part of the[Catalog of Regulatory Science Tools to Help Assess New Medical Devices](https://www.fda.gov/medical-devices/science-and-research-medical-devices/catalog-regulatory-science-tools-help-assess-new-medical-devices)
+, which provides a peer-reviewed resource for stakeholders to use where standards and qualified Medical Device Development Tools (MDDTs) do not yet exist. These tools do not replace FDA-recognized standards or MDDTs. This catalog collates a variety of regulatory science tools that the FDA's Center for Devices and Radiological Health's (CDRH) Office of Science and Engineering Labs (OSEL) developed. These tools use the most innovative science to support medical device development and patient access to safe and effective medical devices. If you are considering using a tool from this catalog in your marketing submissions, note that these tools have not been qualified as Medical Device Development Tools and the FDA has not evaluated the suitability of these tools within any specific context of use. You may request feedback or meetings for medical device submissions as part of the Q-Submission Program.
 
 For more information about the Catalog of Regulatory Science Tools, email RST_CDRH@fda.hhs.gov.
 
